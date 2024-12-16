@@ -21,8 +21,6 @@ struct Poem: Identifiable, Codable {
 // Main content view
 struct ContentView: View {
     @State private var poems: [Poem] = []
-    @State private var selectedPoem: Poem?
-    @State private var showingDetail = false
     @State private var showTranslation = false
     
     var body: some View {
@@ -30,20 +28,19 @@ struct ContentView: View {
             ScrollView {
                 LazyVStack(alignment: .leading) {
                     ForEach(poems) { poem in
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text(poem.title_chinese)
-                                .font(.headline)
-                            Text(poem.title)
-                                .font(.subheadline)
-                                .foregroundColor(.secondary)
-                            Text(poem.author_chinese)
-                                .font(.caption)
-                        }
-                        .padding(.vertical, 8)
-                        .contentShape(Rectangle())
-                        .onTapGesture {
-                            selectedPoem = poem
-                            showingDetail = true
+                        NavigationLink(destination: PoemDetailView(poem: poem, showTranslation: $showTranslation)) {
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text(poem.title_chinese)
+                                    .font(.headline)
+                                    .foregroundColor(.primary)
+                                Text(poem.title)
+                                    .font(.subheadline)
+                                    .foregroundColor(.secondary)
+                                Text(poem.author_chinese)
+                                    .font(.caption)
+                                    .foregroundColor(.primary)
+                            }
+                            .padding(.vertical, 8)
                         }
                         Divider()
                     }
@@ -51,11 +48,6 @@ struct ContentView: View {
                 .padding()
             }
             .navigationTitle("Chinese Poems")
-            .fullScreenCover(isPresented: $showingDetail) {
-                if let poem = selectedPoem {
-                    PoemDetailView(poem: poem, showTranslation: $showTranslation)
-                }
-            }
         }
         .onAppear {
             loadPoems()
@@ -104,51 +96,42 @@ struct ContentView: View {
 struct PoemDetailView: View {
     let poem: Poem
     @Binding var showTranslation: Bool
-    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        NavigationStack {
-            ScrollView(.vertical, showsIndicators: false) {
-                VStack(spacing: 0) {
-                    // Debug text to show we're getting the poem data
-                    Text("Debug - Title: \(poem.title_chinese)")
-                        .font(.caption)
-                        .foregroundColor(.red)
-                    Text("Debug - Content Length: \(poem.content.count) characters")
-                        .font(.caption)
-                        .foregroundColor(.red)
-                        
-                    if showTranslation {
-                        HStack(alignment: .center, spacing: 40) {
-                            ChineseTextColumn(text: poem.content)
-                            EnglishTextColumn(text: poem.translation_english)
-                        }
-                        .padding(.horizontal)
-                    } else {
+        ScrollView(.vertical, showsIndicators: false) {
+            VStack(spacing: 0) {
+                // Debug text
+                Text("Debug - Title: \(poem.title_chinese)")
+                    .font(.caption)
+                    .foregroundColor(.red)
+                Text("Debug - Content Length: \(poem.content.count) characters")
+                    .font(.caption)
+                    .foregroundColor(.red)
+                    
+                if showTranslation {
+                    HStack(alignment: .center, spacing: 40) {
                         ChineseTextColumn(text: poem.content)
-                            .background(Color.gray.opacity(0.1)) // Debug background
+                        EnglishTextColumn(text: poem.translation_english)
                     }
-                }
-                .padding(.vertical, 40)
-            }
-            .navigationTitle(poem.title_chinese)
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button("Close") {
-                        dismiss()
-                    }
-                }
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button(showTranslation ? "Hide Translation" : "Show Translation") {
-                        showTranslation.toggle()
-                    }
+                    .padding(.horizontal)
+                } else {
+                    ChineseTextColumn(text: poem.content)
+                        .background(Color.gray.opacity(0.1))
                 }
             }
-            .onAppear {
-                print("Debug - PoemDetailView appeared")
-                print("Debug - Poem content: \(poem.content.prefix(50))...")
+            .padding(.vertical, 40)
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button(showTranslation ? "Hide Translation" : "Show Translation") {
+                    showTranslation.toggle()
+                }
             }
+        }
+        .onAppear {
+            print("Debug - PoemDetailView appeared")
+            print("Debug - Poem content: \(poem.content.prefix(50))...")
         }
     }
 }
