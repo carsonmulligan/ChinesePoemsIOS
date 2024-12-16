@@ -87,25 +87,19 @@ struct PoemDetailView: View {
     
     var body: some View {
         NavigationStack {
-            GeometryReader { geometry in
-                ScrollView(.vertical, showsIndicators: false) {
-                    VStack(spacing: 20) {
-                        if showTranslation {
-                            HStack(alignment: .top, spacing: 40) {
-                                VerticalPoemText(text: poem.content)
-                                    .frame(width: geometry.size.width / 2 - 30)
-                                VerticalPoemText(text: poem.translation_english, isEnglish: true)
-                                    .frame(width: geometry.size.width / 2 - 30)
-                            }
-                        } else {
-                            VerticalPoemText(text: poem.content)
-                                .frame(maxWidth: .infinity)
+            ScrollView(.vertical, showsIndicators: false) {
+                VStack(spacing: 0) {
+                    if showTranslation {
+                        HStack(alignment: .center, spacing: 40) {
+                            ChineseTextColumn(text: poem.content)
+                            EnglishTextColumn(text: poem.translation_english)
                         }
+                        .padding(.horizontal)
+                    } else {
+                        ChineseTextColumn(text: poem.content)
                     }
-                    .frame(minHeight: geometry.size.height)
-                    .padding(.horizontal)
-                    .padding(.vertical, 40)
                 }
+                .padding(.vertical, 40)
             }
             .navigationTitle(poem.title_chinese)
             .navigationBarTitleDisplayMode(.inline)
@@ -125,20 +119,36 @@ struct PoemDetailView: View {
     }
 }
 
-// Improved vertical text view
-struct VerticalPoemText: View {
+struct ChineseTextColumn: View {
     let text: String
-    var isEnglish: Bool = false
     
     var body: some View {
-        VStack(spacing: isEnglish ? 8 : 20) {
-            ForEach(Array(text), id: \.self) { character in
-                Text(String(character))
-                    .font(.system(size: isEnglish ? 18 : 24, weight: .medium))
+        VStack(spacing: 20) {
+            ForEach(text.map { String($0) }, id: \.self) { character in
+                Text(character)
+                    .font(.system(size: 28, weight: .medium))
+                    .foregroundColor(.primary)
+            }
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.horizontal)
+    }
+}
+
+struct EnglishTextColumn: View {
+    let text: String
+    
+    var body: some View {
+        VStack(spacing: 12) {
+            ForEach(text.split(separator: " "), id: \.self) { word in
+                Text(String(word))
+                    .font(.system(size: 18))
+                    .foregroundColor(.primary)
                     .fixedSize()
             }
         }
         .frame(maxWidth: .infinity)
+        .padding(.horizontal)
     }
 }
 
