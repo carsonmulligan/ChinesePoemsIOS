@@ -1,1 +1,1 @@
-![Image of poem page](screenshot.png)
+![Image of poem page](/ChinesePoems/screenshot.png)
