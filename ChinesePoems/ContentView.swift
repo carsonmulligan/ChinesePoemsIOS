@@ -63,18 +63,39 @@ struct ContentView: View {
     }
     
     private func loadPoems() {
-        if let path = Bundle.main.path(forResource: "poems", ofType: "json") {
+        print("DEBUG: Starting to load poems...")
+        
+        // Check if file exists in bundle
+        let bundle = Bundle.main
+        print("DEBUG: Bundle path: \(bundle.bundlePath)")
+        
+        if let path = bundle.path(forResource: "poems", ofType: "json") {
+            print("DEBUG: Found poems.json at path: \(path)")
             do {
                 let data = try Data(contentsOf: URL(fileURLWithPath: path))
+                print("DEBUG: Successfully read data, size: \(data.count) bytes")
+                
                 let decoder = JSONDecoder()
                 let decodedData = try decoder.decode([String: Poem].self, from: data)
                 poems = Array(decodedData.values).sorted { $0.title_chinese < $1.title_chinese }
-                print("Loaded \(poems.count) poems")
+                print("DEBUG: Successfully decoded \(poems.count) poems")
+                
+                // Print first poem as verification
+                if let firstPoem = poems.first {
+                    print("DEBUG: First poem - Title: \(firstPoem.title_chinese)")
+                }
             } catch {
-                print("Error loading poems: \(error)")
+                print("DEBUG: Error loading poems: \(error)")
+                print("DEBUG: Error details: \(error.localizedDescription)")
             }
         } else {
-            print("Could not find poems.json in bundle")
+            print("DEBUG: Could not find poems.json in bundle")
+            
+            // List all files in bundle for debugging
+            if let resources = try? FileManager.default.contentsOfDirectory(atPath: bundle.bundlePath) {
+                print("DEBUG: Files in bundle:")
+                resources.forEach { print("DEBUG: - \($0)") }
+            }
         }
     }
 }
