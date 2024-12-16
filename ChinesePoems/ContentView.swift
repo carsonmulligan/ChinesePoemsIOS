@@ -27,20 +27,28 @@ struct ContentView: View {
     
     var body: some View {
         NavigationStack {
-            List(poems) { poem in
-                VStack(alignment: .leading) {
-                    Text(poem.title_chinese)
-                        .font(.headline)
-                    Text(poem.title)
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                    Text(poem.author_chinese)
-                        .font(.caption)
+            ScrollView {
+                LazyVStack(alignment: .leading) {
+                    ForEach(poems) { poem in
+                        VStack(alignment: .leading) {
+                            Text(poem.title_chinese)
+                                .font(.headline)
+                            Text(poem.title)
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
+                            Text(poem.author_chinese)
+                                .font(.caption)
+                        }
+                        .padding(.vertical, 8)
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            selectedPoem = poem
+                            showingDetail = true
+                        }
+                        Divider()
+                    }
                 }
-                .onTapGesture {
-                    selectedPoem = poem
-                    showingDetail = true
-                }
+                .padding()
             }
             .navigationTitle("Chinese Poems")
             .sheet(isPresented: $showingDetail) {
@@ -75,21 +83,24 @@ struct PoemDetailView: View {
     
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack {
-                    if showTranslation {
-                        HStack(spacing: 40) {
-                            VerticalText(text: poem.content)
-                                .frame(maxHeight: .infinity)
-                            VerticalText(text: poem.translation_english)
-                                .frame(maxHeight: .infinity)
+            GeometryReader { geometry in
+                ScrollView {
+                    VStack {
+                        if showTranslation {
+                            HStack(alignment: .top, spacing: 40) {
+                                VerticalPoemText(text: poem.content)
+                                    .frame(width: geometry.size.width / 2 - 20)
+                                VerticalPoemText(text: poem.translation_english)
+                                    .frame(width: geometry.size.width / 2 - 20)
+                            }
+                        } else {
+                            VerticalPoemText(text: poem.content)
+                                .frame(maxWidth: .infinity)
                         }
-                    } else {
-                        VerticalText(text: poem.content)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
+                    .frame(minHeight: geometry.size.height)
+                    .padding()
                 }
-                .padding()
             }
             .navigationTitle(poem.title_chinese)
             .navigationBarTitleDisplayMode(.inline)
@@ -109,26 +120,19 @@ struct PoemDetailView: View {
     }
 }
 
-// Custom view for vertical text
-struct VerticalText: View {
+// Improved vertical text view
+struct VerticalPoemText: View {
     let text: String
     
     var body: some View {
-        VStack(spacing: 8) {
-            ForEach(Array(text), id: \.self) { character in
+        VStack(spacing: 20) {
+            ForEach(text.split(separator: " "), id: \.self) { character in
                 Text(String(character))
-                    .font(.system(size: 24))
-                    .rotationEffect(.degrees(String(character).containsEnglish() ? 0 : 90))
+                    .font(.system(size: 24, weight: .medium))
+                    .fixedSize()
             }
         }
-    }
-}
-
-// Helper extension to check if a string contains English characters
-extension String {
-    func containsEnglish() -> Bool {
-        let pattern = "[A-Za-z]"
-        return self.range(of: pattern, options: .regularExpression) != nil
+        .frame(maxWidth: .infinity)
     }
 }
 
