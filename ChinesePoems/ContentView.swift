@@ -30,7 +30,7 @@ struct ContentView: View {
             ScrollView {
                 LazyVStack(alignment: .leading) {
                     ForEach(poems) { poem in
-                        VStack(alignment: .leading) {
+                        VStack(alignment: .leading, spacing: 4) {
                             Text(poem.title_chinese)
                                 .font(.headline)
                             Text(poem.title)
@@ -51,7 +51,7 @@ struct ContentView: View {
                 .padding()
             }
             .navigationTitle("Chinese Poems")
-            .sheet(isPresented: $showingDetail) {
+            .fullScreenCover(isPresented: $showingDetail) {
                 if let poem = selectedPoem {
                     PoemDetailView(poem: poem, showTranslation: $showTranslation)
                 }
@@ -63,14 +63,18 @@ struct ContentView: View {
     }
     
     private func loadPoems() {
-        if let url = Bundle.main.url(forResource: "poems", withExtension: "json") {
+        if let path = Bundle.main.path(forResource: "poems", ofType: "json") {
             do {
-                let data = try Data(contentsOf: url)
-                let decodedData = try JSONDecoder().decode([String: Poem].self, from: data)
-                poems = Array(decodedData.values)
+                let data = try Data(contentsOf: URL(fileURLWithPath: path))
+                let decoder = JSONDecoder()
+                let decodedData = try decoder.decode([String: Poem].self, from: data)
+                poems = Array(decodedData.values).sorted { $0.title_chinese < $1.title_chinese }
+                print("Loaded \(poems.count) poems")
             } catch {
                 print("Error loading poems: \(error)")
             }
+        } else {
+            print("Could not find poems.json in bundle")
         }
     }
 }
@@ -84,14 +88,14 @@ struct PoemDetailView: View {
     var body: some View {
         NavigationStack {
             GeometryReader { geometry in
-                ScrollView {
-                    VStack {
+                ScrollView(.vertical, showsIndicators: false) {
+                    VStack(spacing: 20) {
                         if showTranslation {
                             HStack(alignment: .top, spacing: 40) {
                                 VerticalPoemText(text: poem.content)
-                                    .frame(width: geometry.size.width / 2 - 20)
-                                VerticalPoemText(text: poem.translation_english)
-                                    .frame(width: geometry.size.width / 2 - 20)
+                                    .frame(width: geometry.size.width / 2 - 30)
+                                VerticalPoemText(text: poem.translation_english, isEnglish: true)
+                                    .frame(width: geometry.size.width / 2 - 30)
                             }
                         } else {
                             VerticalPoemText(text: poem.content)
@@ -99,7 +103,8 @@ struct PoemDetailView: View {
                         }
                     }
                     .frame(minHeight: geometry.size.height)
-                    .padding()
+                    .padding(.horizontal)
+                    .padding(.vertical, 40)
                 }
             }
             .navigationTitle(poem.title_chinese)
@@ -123,12 +128,13 @@ struct PoemDetailView: View {
 // Improved vertical text view
 struct VerticalPoemText: View {
     let text: String
+    var isEnglish: Bool = false
     
     var body: some View {
-        VStack(spacing: 20) {
-            ForEach(text.split(separator: " "), id: \.self) { character in
+        VStack(spacing: isEnglish ? 8 : 20) {
+            ForEach(Array(text), id: \.self) { character in
                 Text(String(character))
-                    .font(.system(size: 24, weight: .medium))
+                    .font(.system(size: isEnglish ? 18 : 24, weight: .medium))
                     .fixedSize()
             }
         }
