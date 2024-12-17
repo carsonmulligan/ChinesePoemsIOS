@@ -100,23 +100,11 @@ struct PoemDetailView: View {
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(spacing: 0) {
-                // Debug text
-                Text("Debug - Title: \(poem.title_chinese)")
-                    .font(.caption)
-                    .foregroundColor(.red)
-                Text("Debug - Content Length: \(poem.content.count) characters")
-                    .font(.caption)
-                    .foregroundColor(.red)
-                    
                 if showTranslation {
-                    HStack(alignment: .center, spacing: 40) {
-                        ChineseTextColumn(text: poem.content)
-                        EnglishTextColumn(text: poem.translation_english)
-                    }
-                    .padding(.horizontal)
+                    EnglishTextColumn(text: poem.translation_english)
+                        .padding(.horizontal)
                 } else {
                     ChineseTextColumn(text: poem.content)
-                        .background(Color.gray.opacity(0.1))
                 }
             }
             .padding(.vertical, 40)
@@ -124,14 +112,10 @@ struct PoemDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                Button(showTranslation ? "Hide Translation" : "Show Translation") {
+                Button(showTranslation ? "Show Chinese" : "Show Translation") {
                     showTranslation.toggle()
                 }
             }
-        }
-        .onAppear {
-            print("Debug - PoemDetailView appeared")
-            print("Debug - Poem content: \(poem.content.prefix(50))...")
         }
     }
 }
@@ -141,26 +125,14 @@ struct ChineseTextColumn: View {
     
     var body: some View {
         VStack(spacing: 20) {
-            // Debug count
-            Text("Debug - Characters: \(text.count)")
-                .font(.caption)
-                .foregroundColor(.red)
-                
-            ForEach(Array(text.enumerated()), id: \.offset) { index, char in
+            ForEach(Array(text.enumerated()), id: \.offset) { _, char in
                 Text(String(char))
                     .font(.system(size: 28, weight: .medium))
                     .foregroundColor(.primary)
-                    .background(Color.yellow.opacity(0.1)) // Debug background
-                    .onAppear {
-                        if index == 0 {
-                            print("Debug - First character appeared")
-                        }
-                    }
             }
         }
         .frame(maxWidth: .infinity)
         .padding(.horizontal)
-        .border(Color.blue, width: 1) // Debug border
     }
 }
 
@@ -169,24 +141,17 @@ struct EnglishTextColumn: View {
     
     var body: some View {
         VStack(spacing: 12) {
-            // Debug count
-            Text("Debug - Words: \(text.split(separator: " ").count)")
-                .font(.caption)
-                .foregroundColor(.red)
-                
             ForEach(text.split(separator: " ").enumerated().map { index, word in
                 (index, String(word))
-            }, id: \.0) { index, word in
+            }, id: \.0) { _, word in
                 Text(word)
                     .font(.system(size: 18))
                     .foregroundColor(.primary)
                     .fixedSize()
-                    .background(Color.green.opacity(0.1)) // Debug background
             }
         }
         .frame(maxWidth: .infinity)
         .padding(.horizontal)
-        .border(Color.red, width: 1) // Debug border
     }
 }
 
