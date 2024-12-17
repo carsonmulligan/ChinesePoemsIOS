@@ -7,6 +7,13 @@
 
 import SwiftUI
 
+// Dictionary entry model
+struct DictionaryEntry: Codable {
+    let pinyin: String
+    let definition: String
+    let pinyin_tone_lines: String
+}
+
 // Model for our poems
 struct Poem: Identifiable, Codable {
     let id: String
@@ -96,6 +103,8 @@ struct ContentView: View {
 struct PoemDetailView: View {
     let poem: Poem
     @Binding var showTranslation: Bool
+    @State private var showPinyin = false
+    @State private var pinyinDictionary: [String: DictionaryEntry] = [:]
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
@@ -104,7 +113,7 @@ struct PoemDetailView: View {
                     EnglishTextColumn(text: poem.translation_english)
                         .padding(.horizontal)
                 } else {
-                    ChineseTextColumn(text: poem.content)
+                    ChineseTextColumn(text: poem.content, showPinyin: showPinyin, pinyinDictionary: pinyinDictionary)
                 }
             }
             .padding(.vertical, 40)
@@ -112,28 +121,92 @@ struct PoemDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle(showTranslation ? poem.title : poem.title_chinese)
         .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                if !showTranslation {
+                    Button(showPinyin ? "Hide Pinyin" : "Show Pinyin") {
+                        showPinyin.toggle()
+                    }
+                }
+            }
             ToolbarItem(placement: .topBarTrailing) {
                 Button(showTranslation ? "Show Chinese" : "Show English") {
                     showTranslation.toggle()
                 }
             }
         }
+        .onAppear {
+            loadPinyinDictionary()
+        }
+    }
+    
+    private func loadPinyinDictionary() {
+        print("DEBUG Pinyin: Attempting to load dictionary")
+        
+        guard let url = Bundle.main.url(forResource: "chinese_to_pinyin_dictionary_with_tones", withExtension: "json") else {
+            print("DEBUG Pinyin: Could not find dictionary file in bundle")
+            // List all files in bundle for debugging
+            if let resources = try? FileManager.default.contentsOfDirectory(atPath: Bundle.main.bundlePath) {
+                print("DEBUG Pinyin: Files in bundle:")
+                resources.forEach { print("DEBUG Pinyin: - \($0)") }
+            }
+            return
+        }
+        
+        do {
+            let data = try Data(contentsOf: url)
+            print("DEBUG Pinyin: Successfully read data, size: \(data.count) bytes")
+            pinyinDictionary = try JSONDecoder().decode([String: DictionaryEntry].self, from: data)
+            print("DEBUG Pinyin: Successfully loaded dictionary with \(pinyinDictionary.count) entries")
+            // Print a few sample entries
+            let sampleKeys = Array(pinyinDictionary.keys.prefix(3))
+            for key in sampleKeys {
+                print("DEBUG Pinyin: Sample entry - \(key): \(pinyinDictionary[key]?.pinyin ?? "nil")")
+            }
+        } catch {
+            print("DEBUG Pinyin: Error loading dictionary: \(error)")
+            print("DEBUG Pinyin: Error details: \(error.localizedDescription)")
+        }
     }
 }
 
 struct ChineseTextColumn: View {
     let text: String
+    let showPinyin: Bool
+    let pinyinDictionary: [String: DictionaryEntry]
     
     var body: some View {
         VStack(spacing: 20) {
             ForEach(Array(text.enumerated()), id: \.offset) { _, char in
-                Text(String(char))
-                    .font(.system(size: 28, weight: .medium))
-                    .foregroundColor(.primary)
+                HStack(alignment: .center, spacing: 8) {
+                    Text(String(char))
+                        .font(.system(size: 28, weight: .medium))
+                        .foregroundColor(.primary)
+                    
+                    if showPinyin {
+                        let charStr = String(char)
+                        if let entry = pinyinDictionary[charStr] {
+                            Text(entry.pinyin_tone_lines)
+                                .font(.system(size: 16))
+                                .foregroundColor(.secondary)
+                        } else {
+                            Text("not found")
+                                .font(.system(size: 12))
+                                .foregroundColor(.red)
+                            .onAppear {
+                                print("DEBUG Pinyin: Character '\(charStr)' not found in dictionary")
+                                print("DEBUG Pinyin: Dictionary has \(pinyinDictionary.count) entries")
+                            }
+                        }
+                    }
+                }
             }
         }
         .frame(maxWidth: .infinity)
         .padding(.horizontal)
+        .onAppear {
+            print("DEBUG Pinyin: ChineseTextColumn appeared with showPinyin=\(showPinyin)")
+            print("DEBUG Pinyin: Dictionary has \(pinyinDictionary.count) entries")
+        }
     }
 }
 
