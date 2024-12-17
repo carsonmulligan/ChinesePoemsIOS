@@ -174,38 +174,48 @@ struct ChineseTextColumn: View {
     let showPinyin: Bool
     let pinyinDictionary: [String: DictionaryEntry]
     
+    // Helper to create identifiable characters
+    private var characters: [(id: String, char: Character)] {
+        text.enumerated().map { (String($0), $1) }
+    }
+    
     var body: some View {
         VStack(spacing: 20) {
-            ForEach(Array(text.enumerated()), id: \.offset) { _, char in
-                HStack(alignment: .center, spacing: 8) {
-                    Text(String(char))
-                        .font(.system(size: 28, weight: .medium))
-                        .foregroundColor(.primary)
-                    
-                    if showPinyin {
-                        let charStr = String(char)
-                        if let entry = pinyinDictionary[charStr] {
-                            Text(entry.pinyin_tone_lines)
-                                .font(.system(size: 16))
-                                .foregroundColor(.secondary)
-                        } else {
-                            Text("not found")
-                                .font(.system(size: 12))
-                                .foregroundColor(.red)
-                            .onAppear {
-                                print("DEBUG Pinyin: Character '\(charStr)' not found in dictionary")
-                                print("DEBUG Pinyin: Dictionary has \(pinyinDictionary.count) entries")
-                            }
-                        }
-                    }
-                }
+            ForEach(characters, id: \.id) { item in
+                CharacterView(char: item.char, showPinyin: showPinyin, pinyinDictionary: pinyinDictionary)
             }
         }
         .frame(maxWidth: .infinity)
         .padding(.horizontal)
-        .onAppear {
-            print("DEBUG Pinyin: ChineseTextColumn appeared with showPinyin=\(showPinyin)")
-            print("DEBUG Pinyin: Dictionary has \(pinyinDictionary.count) entries")
+    }
+}
+
+// Separate view for each character
+struct CharacterView: View {
+    let char: Character
+    let showPinyin: Bool
+    let pinyinDictionary: [String: DictionaryEntry]
+    
+    var body: some View {
+        let charStr = String(char)
+        if charStr.trimmingCharacters(in: .whitespacesAndPunctuation).isEmpty {
+            Text(charStr)
+                .font(.system(size: 28, weight: .medium))
+                .foregroundColor(.primary)
+        } else {
+            HStack(alignment: .center, spacing: 8) {
+                Text(charStr)
+                    .font(.system(size: 28, weight: .medium))
+                    .foregroundColor(.primary)
+                
+                if showPinyin {
+                    if let entry = pinyinDictionary[charStr] {
+                        Text(entry.pinyin_tone_lines)
+                            .font(.system(size: 16))
+                            .foregroundColor(.secondary)
+                    }
+                }
+            }
         }
     }
 }
