@@ -62,38 +62,15 @@ struct ContentView: View {
     }
     
     private func loadPoems() {
-        print("DEBUG: Starting to load poems...")
-        
-        // Check if file exists in bundle
         let bundle = Bundle.main
-        print("DEBUG: Bundle path: \(bundle.bundlePath)")
-        
         if let path = bundle.path(forResource: "poems", ofType: "json") {
-            print("DEBUG: Found poems.json at path: \(path)")
             do {
                 let data = try Data(contentsOf: URL(fileURLWithPath: path))
-                print("DEBUG: Successfully read data, size: \(data.count) bytes")
-                
                 let decoder = JSONDecoder()
                 let decodedData = try decoder.decode([String: Poem].self, from: data)
                 poems = Array(decodedData.values).sorted { $0.title_chinese < $1.title_chinese }
-                print("DEBUG: Successfully decoded \(poems.count) poems")
-                
-                // Print first poem as verification
-                if let firstPoem = poems.first {
-                    print("DEBUG: First poem - Title: \(firstPoem.title_chinese)")
-                }
             } catch {
-                print("DEBUG: Error loading poems: \(error)")
-                print("DEBUG: Error details: \(error.localizedDescription)")
-            }
-        } else {
-            print("DEBUG: Could not find poems.json in bundle")
-            
-            // List all files in bundle for debugging
-            if let resources = try? FileManager.default.contentsOfDirectory(atPath: bundle.bundlePath) {
-                print("DEBUG: Files in bundle:")
-                resources.forEach { print("DEBUG: - \($0)") }
+                // Silently handle error
             }
         }
     }
@@ -174,49 +151,27 @@ struct ChineseTextColumn: View {
     let showPinyin: Bool
     let pinyinDictionary: [String: DictionaryEntry]
     
-    // Helper to create identifiable characters
-    private var characters: [(id: String, char: Character)] {
-        text.enumerated().map { (String($0), $1) }
-    }
-    
     var body: some View {
         VStack(spacing: 20) {
-            ForEach(characters, id: \.id) { item in
-                CharacterView(char: item.char, showPinyin: showPinyin, pinyinDictionary: pinyinDictionary)
-            }
-        }
-        .frame(maxWidth: .infinity)
-        .padding(.horizontal)
-    }
-}
-
-// Separate view for each character
-struct CharacterView: View {
-    let char: Character
-    let showPinyin: Bool
-    let pinyinDictionary: [String: DictionaryEntry]
-    
-    var body: some View {
-        let charStr = String(char)
-        if charStr.trimmingCharacters(in: .whitespacesAndPunctuation).isEmpty {
-            Text(charStr)
-                .font(.system(size: 28, weight: .medium))
-                .foregroundColor(.primary)
-        } else {
-            HStack(alignment: .center, spacing: 8) {
-                Text(charStr)
-                    .font(.system(size: 28, weight: .medium))
-                    .foregroundColor(.primary)
-                
-                if showPinyin {
-                    if let entry = pinyinDictionary[charStr] {
-                        Text(entry.pinyin_tone_lines)
-                            .font(.system(size: 16))
-                            .foregroundColor(.secondary)
+            ForEach(Array(text.enumerated()), id: \.offset) { _, char in
+                HStack(alignment: .center, spacing: 8) {
+                    Text(String(char))
+                        .font(.system(size: 28, weight: .medium))
+                        .foregroundColor(.primary)
+                    
+                    if showPinyin {
+                        let charStr = String(char)
+                        if let entry = pinyinDictionary[charStr] {
+                            Text(entry.pinyin_tone_lines)
+                                .font(.system(size: 16))
+                                .foregroundColor(.secondary)
+                        }
                     }
                 }
             }
         }
+        .frame(maxWidth: .infinity)
+        .padding(.horizontal)
     }
 }
 
