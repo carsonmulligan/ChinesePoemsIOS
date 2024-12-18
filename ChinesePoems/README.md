@@ -1,4 +1,4 @@
-![Hanzi](notes/hanzi.png)
-![Pinyin](notes/pinyin.png)
-![Yingwen](notes/yingwen.png)
+![Hanzi](hanzi.png)
+![Pinyin](pinyin.png)
+![Yingwen](yingwen.png)
 ![Poems Index](screenshot.png)
