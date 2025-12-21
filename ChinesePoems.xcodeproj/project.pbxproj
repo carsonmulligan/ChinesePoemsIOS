@@ -6,12 +6,41 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		45FFA0222D13BEC0005E8936 /* VerticalChinese.app in Embed App Clips */ = {isa = PBXBuildFile; fileRef = 45FFA0132D13BEBF005E8936 /* VerticalChinese.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		45FFA0202D13BEC0005E8936 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 458DC4F02D0FC6DF005608C4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 45FFA0122D13BEBF005E8936;
+			remoteInfo = VerticalChinese;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		45FFA0272D13BEC0005E8936 /* Embed App Clips */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/AppClips";
+			dstSubfolderSpec = 16;
+			files = (
+				45FFA0222D13BEC0005E8936 /* VerticalChinese.app in Embed App Clips */,
+			);
+			name = "Embed App Clips";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		458DC4F82D0FC6DF005608C4 /* ChinesePoems.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChinesePoems.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		45FFA0132D13BEBF005E8936 /* VerticalChinese.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VerticalChinese.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		458DC4FA2D0FC6DF005608C4 /* ChinesePoems */ = {
+		4557CF822D1BEAD3000E9BC1 /* ChinesePoems */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = ChinesePoems;
 			sourceTree = "<group>";
@@ -26,13 +55,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		45FFA0102D13BEBF005E8936 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		458DC4EF2D0FC6DF005608C4 = {
 			isa = PBXGroup;
 			children = (
-				458DC4FA2D0FC6DF005608C4 /* ChinesePoems */,
+				4557CF822D1BEAD3000E9BC1 /* ChinesePoems */,
 				458DC4F92D0FC6DF005608C4 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,6 +77,7 @@
 			isa = PBXGroup;
 			children = (
 				458DC4F82D0FC6DF005608C4 /* ChinesePoems.app */,
+				45FFA0132D13BEBF005E8936 /* VerticalChinese.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -55,13 +92,15 @@
 				458DC4F42D0FC6DF005608C4 /* Sources */,
 				458DC4F52D0FC6DF005608C4 /* Frameworks */,
 				458DC4F62D0FC6DF005608C4 /* Resources */,
+				45FFA0272D13BEC0005E8936 /* Embed App Clips */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				45FFA0212D13BEC0005E8936 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				458DC4FA2D0FC6DF005608C4 /* ChinesePoems */,
+				4557CF822D1BEAD3000E9BC1 /* ChinesePoems */,
 			);
 			name = ChinesePoems;
 			packageProductDependencies = (
@@ -69,6 +108,25 @@
 			productName = ChinesePoems;
 			productReference = 458DC4F82D0FC6DF005608C4 /* ChinesePoems.app */;
 			productType = "com.apple.product-type.application";
+		};
+		45FFA0122D13BEBF005E8936 /* VerticalChinese */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 45FFA0242D13BEC0005E8936 /* Build configuration list for PBXNativeTarget "VerticalChinese" */;
+			buildPhases = (
+				45FFA00F2D13BEBF005E8936 /* Sources */,
+				45FFA0102D13BEBF005E8936 /* Frameworks */,
+				45FFA0112D13BEBF005E8936 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = VerticalChinese;
+			packageProductDependencies = (
+			);
+			productName = VerticalChinese;
+			productReference = 45FFA0132D13BEBF005E8936 /* VerticalChinese.app */;
+			productType = "com.apple.product-type.application.on-demand-install-capable";
 		};
 /* End PBXNativeTarget section */
 
@@ -81,6 +139,9 @@
 				LastUpgradeCheck = 1620;
 				TargetAttributes = {
 					458DC4F72D0FC6DF005608C4 = {
+						CreatedOnToolsVersion = 16.2;
+					};
+					45FFA0122D13BEBF005E8936 = {
 						CreatedOnToolsVersion = 16.2;
 					};
 				};
@@ -100,12 +161,20 @@
 			projectRoot = "";
 			targets = (
 				458DC4F72D0FC6DF005608C4 /* ChinesePoems */,
+				45FFA0122D13BEBF005E8936 /* VerticalChinese */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		458DC4F62D0FC6DF005608C4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		45FFA0112D13BEBF005E8936 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -122,7 +191,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		45FFA00F2D13BEBF005E8936 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		45FFA0212D13BEC0005E8936 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 45FFA0122D13BEBF005E8936 /* VerticalChinese */;
+			targetProxy = 45FFA0202D13BEC0005E8936 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		458DC5042D0FC6E0005608C4 /* Debug */ = {
@@ -268,7 +352,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = NA.ChinesePoems;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -304,7 +388,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = NA.ChinesePoems;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -314,6 +398,70 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		45FFA0252D13BEC0005E8936 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = VerticalChinese/VerticalChinese.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"VerticalChinese/Preview Content\"";
+				DEVELOPMENT_TEAM = 7B9449A6V8;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = VerticalChinese/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ChinesePoems;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = NA.ChinesePoems.Clip;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		45FFA0262D13BEC0005E8936 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = VerticalChinese/VerticalChinese.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"VerticalChinese/Preview Content\"";
+				DEVELOPMENT_TEAM = 7B9449A6V8;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = VerticalChinese/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ChinesePoems;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = NA.ChinesePoems.Clip;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -334,6 +482,15 @@
 			buildConfigurations = (
 				458DC5072D0FC6E0005608C4 /* Debug */,
 				458DC5082D0FC6E0005608C4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		45FFA0242D13BEC0005E8936 /* Build configuration list for PBXNativeTarget "VerticalChinese" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				45FFA0252D13BEC0005E8936 /* Debug */,
+				45FFA0262D13BEC0005E8936 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
