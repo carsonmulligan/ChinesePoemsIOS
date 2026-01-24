@@ -325,7 +325,322 @@
       "author": "Zhuangzi",
       "content": "孔子愀然而歎 再拜而起曰：「丘再逐於魯 削跡於衛 伐樹於宋 圍於陳、蔡。",
       "content_english": "Confucius looked sorrowful and sighed. He bowed twice, and then rose up and said, 'I was twice driven from Lu. I had to flee from Wei; the tree under which I rested was cut down in Song; I was kept in a state of siege between Chen and Cai.'",
-      "translation_english": "Confucius grew somber, sighing deeply. After two respectful bows, he stood and said, “I, Qiu, was twice expelled from Lu, my presence erased in Wei, my resting tree chopped down in Song, and besieged between Chen and Cai.”"
+      "translation_english": "Confucius grew somber, sighing deeply. After two respectful bows, he stood and said, 'I, Qiu, was twice expelled from Lu, my presence erased in Wei, my resting tree chopped down in Song, and besieged between Chen and Cai.'"
+    },
+    "209": {
+      "id": "209",
+      "title_chinese": "莊周夢蝶",
+      "title": "Zhuangzi Dreams of Being a Butterfly",
+      "author_chinese": "莊子",
+      "author": "Zhuangzi",
+      "content": "昔者莊周夢為胡蝶 栩栩然胡蝶也 自喻適志與 不知周也。俄然覺 則蘧蘧然周也。不知周之夢為胡蝶與 胡蝶之夢為周與。周與胡蝶 則必有分矣。此之謂物化。",
+      "translation_english": "Once upon a time, Zhuangzi dreamed he was a butterfly, fluttering about joyfully, just a butterfly. He was conscious only of following his whims as a butterfly, unaware that he was Zhuangzi. Suddenly he awoke, and there he was, solidly and unmistakably Zhuangzi. But he didn't know if he was Zhuangzi who had dreamt of being a butterfly, or a butterfly dreaming of being Zhuangzi. Between Zhuangzi and the butterfly there must be some distinction. This is called the Transformation of Things."
+    },
+    "210": {
+      "id": "210",
+      "title_chinese": "庖丁解牛",
+      "title": "Cook Ding Cuts Up an Ox",
+      "author_chinese": "莊子",
+      "author": "Zhuangzi",
+      "content": "庖丁為文惠君解牛 手之所觸 肩之所倚 足之所履 膝之所踦 砉然嚮然 奏刀騞然 莫不中音 合於桑林之舞 乃中經首之會。文惠君曰：「嘻 善哉 技蓋至此乎？」",
+      "translation_english": "Cook Ding was cutting up an ox for Lord Wenhui. With every touch of his hand, every heave of his shoulder, every step of his foot, every thrust of his knee — zip! zoop! He sliced and diced with a rhythm, making music with his blade, moving as if in the Mulberry Grove dance, hitting the beats of the Jingshou music. Lord Wenhui exclaimed: 'Ah, marvelous! How did your skill reach such heights?'"
+    },
+    "211": {
+      "id": "211",
+      "title_chinese": "庖丁釋刀",
+      "title": "Cook Ding Explains His Art",
+      "author_chinese": "莊子",
+      "author": "Zhuangzi",
+      "content": "庖丁釋刀對曰：「臣之所好者道也 進乎技矣。始臣之解牛之時 所見無非全牛者。三年之後 未嘗見全牛也。方今之時 臣以神遇而不以目視 官知止而神欲行。依乎天理 批大郤 導大窾 因其固然。",
+      "translation_english": "Cook Ding laid down his knife and replied: 'What your servant loves is the Way, which goes beyond mere skill. When I first began cutting up oxen, all I could see was the ox itself. After three years, I no longer saw the whole ox. Now I meet it with my spirit rather than look at it with my eyes. My senses stop but my spirit moves freely. I follow the natural structure, strike in the big gaps, guide the knife through the large openings, following things as they naturally are.'"
+    },
+    "212": {
+      "id": "212",
+      "title_chinese": "庖丁之刀",
+      "title": "Cook Ding's Blade",
+      "author_chinese": "莊子",
+      "author": "Zhuangzi",
+      "content": "良庖歲更刀 割也。族庖月更刀 折也。今臣之刀十九年矣 所解數千牛矣 而刀刃若新發於硎。彼節者有閒 而刀刃者無厚。以無厚入有閒 恢恢乎其於游刃必有餘地矣。是以十九年而刀刃若新發於硎。",
+      "translation_english": "A good cook changes his blade once a year — because he cuts. A mediocre cook changes his blade once a month — because he hacks. I've had this blade for nineteen years and cut up thousands of oxen, yet the blade is as sharp as if newly ground. There are spaces in the joints, and the blade has no thickness. Insert what has no thickness into spaces, and the blade moves freely with room to spare. That's why after nineteen years the blade is still like new."
+    },
+    "213": {
+      "id": "213",
+      "title_chinese": "北冥有魚",
+      "title": "In the Northern Sea There Is a Fish",
+      "author_chinese": "莊子",
+      "author": "Zhuangzi",
+      "content": "北冥有魚 其名為鯤。鯤之大 不知其幾千里也。化而為鳥 其名為鵬。鵬之背 不知其幾千里也。怒而飛 其翼若垂天之雲。是鳥也 海運則將徙於南冥。南冥者 天池也。",
+      "translation_english": "In the northern darkness there is a fish called Kun. The Kun is so huge no one knows how many thousands of miles it measures. It changes and becomes a bird called Peng. The back of the Peng measures who knows how many thousands of miles across. When it rises and flies off, its wings are like clouds all across the sky. When the sea churns, this bird sets off for the southern darkness, the Pool of Heaven."
+    },
+    "214": {
+      "id": "214",
+      "title_chinese": "鵬徙南冥",
+      "title": "The Peng Bird Migrates South",
+      "author_chinese": "莊子",
+      "author": "Zhuangzi",
+      "content": "鵬之徙於南冥也 水擊三千里 摶扶搖而上者九萬里 去以六月息者也。野馬也 塵埃也 生物之以息相吹也。天之蒼蒼 其正色邪？其遠而無所至極邪？其視下也 亦若是則已矣。",
+      "translation_english": "When the Peng migrates to the southern darkness, the waters are roiled for three thousand miles. It rises with the wind and climbs up ninety thousand miles, departing on the sixth-month gust. Wavering heat, bits of dust, creatures blowing each other about with their breath — is the sky's blueness its real color? Is it just that it goes on so far without end? When the bird looks down, it sees the same blue too."
+    },
+    "215": {
+      "id": "215",
+      "title_chinese": "知魚之樂",
+      "title": "The Joy of Fish",
+      "author_chinese": "莊子",
+      "author": "Zhuangzi",
+      "content": "莊子與惠子遊於濠梁之上。莊子曰：「鯈魚出游從容 是魚之樂也。」惠子曰：「子非魚 安知魚之樂？」莊子曰：「子非我 安知我不知魚之樂？」",
+      "translation_english": "Zhuangzi and Huizi were strolling across the bridge over the Hao River. Zhuangzi said: 'See how the minnows dart about so free and easy. This is the happiness of fish.' Huizi said: 'You're not a fish — how do you know what makes fish happy?' Zhuangzi said: 'You're not me — how do you know I don't know what makes fish happy?'"
+    },
+    "216": {
+      "id": "216",
+      "title_chinese": "濠梁之辯",
+      "title": "The Debate at the Hao River Bridge",
+      "author_chinese": "莊子",
+      "author": "Zhuangzi",
+      "content": "惠子曰：「我非子 固不知子矣。子固非魚也 子之不知魚之樂 全矣。」莊子曰：「請循其本。子曰『汝安知魚樂』云者 既已知吾知之而問我 我知之濠上也。」",
+      "translation_english": "Huizi said: 'I'm not you, so I certainly don't know you. You are certainly not a fish — so you cannot know what fish enjoy. That settles it completely.' Zhuangzi said: 'Let's go back to the beginning. You asked me how I know what fish enjoy. But you already knew I knew it when you asked me. I knew it from above the Hao River.'"
+    },
+    "217": {
+      "id": "217",
+      "title_chinese": "混沌之死",
+      "title": "The Death of Chaos",
+      "author_chinese": "莊子",
+      "author": "Zhuangzi",
+      "content": "南海之帝為儵 北海之帝為忽 中央之帝為渾沌。儵與忽時相與遇於渾沌之地 渾沌待之甚善。儵與忽謀報渾沌之德 曰：「人皆有七竅以視聽食息 此獨無有 嘗試鑿之。」日鑿一竅 七日而渾沌死。",
+      "translation_english": "The emperor of the South Sea was called Shu, the emperor of the North Sea was called Hu, and the emperor of the center was called Hundun (Chaos). Shu and Hu often met in the territory of Hundun, and Hundun treated them very kindly. Shu and Hu discussed how to repay Hundun's virtue. They said: 'All men have seven openings to see, hear, eat, and breathe. Hundun alone has none. Let us try drilling some.' Each day they drilled one hole, and on the seventh day Hundun died."
+    },
+    "218": {
+      "id": "218",
+      "title_chinese": "無用之木",
+      "title": "The Useless Tree",
+      "author_chinese": "莊子",
+      "author": "Zhuangzi",
+      "content": "匠石之齊 至於曲轅 見櫟社樹 其大蔽數千牛 絜之百圍 其高臨山 十仞而後有枝 其可以為舟者旁十數。觀者如市 匠伯不顧 遂行不輟。弟子厭觀之 走及匠石 曰：「自吾執斧斤以隨夫子 未嘗見材如此其美也。先生不肯視 行不輟 何邪？」",
+      "translation_english": "Carpenter Shi was traveling to Qi when he came to Quyuan and saw an oak tree at the village shrine. It was so large that its shade could cover thousands of cattle. Its trunk was a hundred spans around. It towered over the mountains, with branches starting only eighty feet up; dozens of them were big enough to make boats. Crowds gathered to gawk, but Carpenter Shi walked right past without a glance. His apprentice looked his fill and ran after the carpenter, asking: 'Since I took up my ax to follow you, I've never seen timber as beautiful as this. Yet you won't give it a look but walk right on. Why?'"
+    },
+    "219": {
+      "id": "219",
+      "title_chinese": "社樹之夢",
+      "title": "The Dream of the Shrine Tree",
+      "author_chinese": "莊子",
+      "author": "Zhuangzi",
+      "content": "曰：「已矣 勿言之矣！散木也 以為舟則沈 以為棺槨則速腐 以為器則速毀 以為門戶則液樠 以為柱則蠹 是不材之木也 無所可用 故能若是之壽。」匠石歸 櫟社見夢曰：「女將惡乎比予哉？」",
+      "translation_english": "The carpenter replied: 'Forget it — say no more! It's worthless timber. Make a boat from it and it will sink; make a coffin and it will rot quickly; make a tool and it will break; make a door and it will ooze sap; make a pillar and it will be eaten by worms. This wood is useless, good for nothing. That's why it has lived so long.' When Carpenter Shi returned home, the shrine oak appeared to him in a dream and said: 'What will you compare me with?'"
+    },
+    "220": {
+      "id": "220",
+      "title_chinese": "至人無己",
+      "title": "The Perfect Man Has No Self",
+      "author_chinese": "莊子",
+      "author": "Zhuangzi",
+      "content": "故曰：至人無己 神人無功 聖人無名。堯讓天下於許由 曰：「日月出矣 而爝火不息 其於光也 不亦難乎？時雨降矣 而猶浸灌 其於澤也 不亦勞乎？夫子立而天下治 而我猶尸之 吾自視缺然 請致天下。」",
+      "translation_english": "Therefore it is said: the Perfect Man has no self, the Spirit Man has no merit, the Sage has no fame. Yao wanted to cede the empire to Xu You and said: 'When the sun and moon have risen, the torches still burn on — isn't it hard for them to give light? When the seasonal rains have fallen, if you keep watering the fields — isn't that wasted labor? If you take your place, the world will be well governed, yet I am the one running things. I look at myself and see how inadequate I am. Please take the empire.'"
+    },
+    "221": {
+      "id": "221",
+      "title_chinese": "許由辭天下",
+      "title": "Xu You Declines the Empire",
+      "author_chinese": "莊子",
+      "author": "Zhuangzi",
+      "content": "許由曰：「子治天下 天下既已治也 而我猶代子 吾將為名乎？名者 實之賓也 吾將為賓乎？鷦鷯巢於深林 不過一枝。偃鼠飲河 不過滿腹。歸休乎君！予無所用天下為。庖人雖不治庖 尸祝不越樽俎而代之矣。」",
+      "translation_english": "Xu You said: 'You govern the empire and it is already well governed. If I took your place, would I be doing it for fame? Fame is just the guest of reality — shall I be the guest? The wren nesting in the deep forest needs only one branch. The mole drinking at the river fills only its belly. Go home and rest, my lord! I have no use for the empire. Though the cook may not tend his kitchen properly, the priest and impersonator of the dead do not leap over the wine casks and sacrificial vessels to take his place.'"
+    },
+    "222": {
+      "id": "222",
+      "title_chinese": "井蛙不可語海",
+      "title": "You Cannot Speak of the Ocean to a Well Frog",
+      "author_chinese": "莊子",
+      "author": "Zhuangzi",
+      "content": "井蛙不可以語於海者 拘於虛也。夏蟲不可以語於冰者 篤於時也。曲士不可以語於道者 束於教也。今爾出於崖涘 觀於大海 乃知爾醜。爾將可與語大理矣。",
+      "translation_english": "You cannot speak of the ocean to a well frog — it is limited by its space. You cannot speak of ice to a summer insect — it is bound by its season. You cannot speak of the Way to a narrow scholar — he is constrained by his teaching. Now you have come out from your banks and seen the great sea, and you know your own ugliness. From now on it will be possible to talk to you of the Great Principle."
+    },
+    "223": {
+      "id": "223",
+      "title_chinese": "河伯與北海若",
+      "title": "The River God and the Sea God",
+      "author_chinese": "莊子",
+      "author": "Zhuangzi",
+      "content": "秋水時至 百川灌河 涇流之大 兩涘渚崖之間 不辯牛馬。於是焉河伯欣然自喜 以天下之美為盡在己。順流而東行 至於北海 東面而視 不見水端 於是焉河伯始旋其面目 望洋向若而歎。",
+      "translation_english": "When autumn floods came, a hundred streams poured into the Yellow River. Its current swelled so wide that from bank to bank one could not tell a horse from an ox. The River God was delighted, believing all the beauty under heaven was gathered in him. He drifted east with the current until he reached the North Sea. Looking east, he could see no end to the waters. Then the River God began to turn his face, gazing out at the vast ocean and sighing."
+    },
+    "224": {
+      "id": "224",
+      "title_chinese": "大知小知",
+      "title": "Great Knowledge and Small Knowledge",
+      "author_chinese": "莊子",
+      "author": "Zhuangzi",
+      "content": "大知閒閒 小知閒閒。大言炎炎 小言詹詹。其寐也魂交 其覺也形開。與接為構 日以心鬭。縵者 窖者 密者。小恐惴惴 大恐縵縵。其發若機栝 其司是非之謂也。",
+      "translation_english": "Great knowledge is broad and unhurried; small knowledge is cramped and busy. Great words are clear and lofty; small words are shrill and quarrelsome. In sleep, spirits intermingle; in waking, the body opens. Whatever we encounter hooks us. Day after day we use our minds in struggle — sometimes grandiose, sometimes sly, sometimes petty. Little fears bring agitation; great fears bring stupefaction. Thoughts shoot out like a trigger released — judging this right and that wrong."
+    },
+    "225": {
+      "id": "225",
+      "title_chinese": "梵志翻著襪",
+      "title": "Fanzhi Wears His Socks Inside Out",
+      "author_chinese": "王梵志",
+      "author": "Wang Fanzhi",
+      "content": "梵志翻著襪 人皆道是錯。乍可刺你眼 不可隱我腳。",
+      "translation_english": "Fanzhi wears his socks inside out, everyone says it's wrong. I'd rather offend your eyes than cause my feet pain."
+    },
+    "226": {
+      "id": "226",
+      "title_chinese": "城外土饅頭",
+      "title": "Earth Buns Outside the City",
+      "author_chinese": "王梵志",
+      "author": "Wang Fanzhi",
+      "content": "城外土饅頭 餡草在城裡。一人喫一個 莫嫌沒滋味。",
+      "translation_english": "Outside the city walls are earth buns (burial mounds), with filling (people) still inside the city. Each person will eat one, don't complain they have no taste."
+    },
+    "227": {
+      "id": "227",
+      "title_chinese": "世無百年人",
+      "title": "No One Lives a Hundred Years",
+      "author_chinese": "王梵志",
+      "author": "Wang Fanzhi",
+      "content": "世無百年人 強作千年調。打鐵作門限 鬼見拍手笑。",
+      "translation_english": "No one in this world lives a hundred years, yet they stubbornly make thousand-year plans. Forging iron door thresholds, even ghosts clap their hands and laugh."
+    },
+    "228": {
+      "id": "228",
+      "title_chinese": "他人騎大馬",
+      "title": "Others Ride Great Horses",
+      "author_chinese": "王梵志",
+      "author": "Wang Fanzhi",
+      "content": "他人騎大馬 我獨跨驢子。回顧擔柴漢 心下較些子。",
+      "translation_english": "Others ride great horses, I alone ride a donkey. Looking back at the man carrying firewood, my heart feels somewhat better."
+    },
+    "229": {
+      "id": "229",
+      "title_chinese": "我昔未生時",
+      "title": "Before I Was Born",
+      "author_chinese": "王梵志",
+      "author": "Wang Fanzhi",
+      "content": "我昔未生時 冥冥無所知。天公強生我 生我復何為。無衣使我寒 無食使我飢。還你天公我 還我未生時。",
+      "translation_english": "Before I was born, in darkness I knew nothing. Heaven forced me into life, but for what purpose? No clothes make me cold, no food makes me hungry. I return myself to you, Heaven, give me back the time before I was born."
+    },
+    "230": {
+      "id": "230",
+      "title_chinese": "兀然無事坐",
+      "title": "Sitting Idle with Nothing to Do",
+      "author_chinese": "王梵志",
+      "author": "Wang Fanzhi",
+      "content": "世事悠悠 不如山丘。青松蔽日 碧澗長秋。山雲當幕 夜月為鉤。卧藤蘿下 塊石枕頭。不朝天子 豈羨王侯。生死無慮 更復何憂。萬法皆爾 本自無生。兀然無事坐 春來草自青。",
+      "translation_english": "Worldly affairs drift on and on, not as good as the hills. Green pines shade the sun, blue streams are always autumn-like. Mountain clouds serve as curtains, the night moon as a hook. Lying beneath the vines, a stone block for a pillow. I don't attend the emperor's court, why envy lords and princes? With no worry about life and death, what else is there to worry about? All dharmas are thus, originally never born. Sitting idle with nothing to do, when spring comes the grass naturally turns green."
+    },
+    "231": {
+      "id": "231",
+      "title_chinese": "造作莊田猶未已",
+      "title": "Still Building Estates",
+      "author_chinese": "王梵志",
+      "author": "Wang Fanzhi",
+      "content": "造作莊田猶未已 堂上哭聲身已死。哭人盡是分錢人 口哭原來心裏喜。",
+      "translation_english": "Still building estates without stopping, but crying already fills the hall — he has died. Those crying are all people waiting to divide the money, their mouths cry but their hearts are secretly happy."
+    },
+    "232": {
+      "id": "232",
+      "title_chinese": "欺謊得錢君莫羨",
+      "title": "Don't Envy Those Who Cheat for Money",
+      "author_chinese": "王梵志",
+      "author": "Wang Fanzhi",
+      "content": "欺謊得錢君莫羨 究竟還是輸他便。不信但看槽上驢 秖是改頭不識面。",
+      "translation_english": "Don't envy those who get money through deceit, in the end they still lose out. If you don't believe it, just look at the donkey at the trough — it's just changed its head but you wouldn't recognize its face."
+    },
+    "233": {
+      "id": "233",
+      "title_chinese": "我有一方便",
+      "title": "I Have One Convenient Method",
+      "author_chinese": "王梵志",
+      "author": "Wang Fanzhi",
+      "content": "我有一方便 價值百匹練。相打長伏弱 至死不入縣。",
+      "translation_english": "I have one convenient method, worth a hundred bolts of silk. In fights, always yield to the weaker, until death never go to the county court."
+    },
+    "234": {
+      "id": "234",
+      "title_chinese": "生時不共作榮華",
+      "title": "In Life You Didn't Share the Glory",
+      "author_chinese": "王梵志",
+      "author": "Wang Fanzhi",
+      "content": "生時不共作榮華 死後隨車強叫喚。齊頭送到墓門回 分你錢財各頭散。",
+      "translation_english": "In life you didn't share the glory together, after death you follow the hearse forcing yourself to wail. Once you've escorted the body to the grave's entrance, you return to divide the money and each goes their separate way."
+    },
+    "235": {
+      "id": "235",
+      "title_chinese": "道德經第一章",
+      "title": "Tao Te Ching Chapter One",
+      "author_chinese": "老子",
+      "author": "Laozi",
+      "content": "道可道 非常道。名可名 非常名。無名天地之始 有名萬物之母。故常無欲以觀其妙 常有欲以觀其徼。此兩者同出而異名 同謂之玄。玄之又玄 衆妙之門。",
+      "translation_english": "The Tao that can be told is not the eternal Tao. The name that can be named is not the eternal name. The nameless is the origin of heaven and earth. The named is the mother of ten thousand things. Free from desire, you can see the hidden mystery. Caught in desire, you see only what is manifest. These two spring from the same source but differ in name; this unity is called the mystery. Mystery of mysteries, the gateway to all wonders."
+    },
+    "236": {
+      "id": "236",
+      "title_chinese": "道德經第八章",
+      "title": "Tao Te Ching Chapter Eight",
+      "author_chinese": "老子",
+      "author": "Laozi",
+      "content": "上善若水。水善利萬物而不爭 處衆人之所惡 故幾於道。居善地 心善淵 與善仁 言善信 正善治 事善能 動善時。夫唯不爭 故無尤。",
+      "translation_english": "The highest good is like water. Water benefits all things and does not compete. It dwells in lowly places that others disdain. This is why it is so near to the Tao. In dwelling, be close to the land. In meditation, go deep into the heart. In dealing with others, be gentle and kind. In speech, be true. In ruling, be just. In daily life, be competent. In action, be aware of timing. Because it does not compete, it is without fault."
+    },
+    "237": {
+      "id": "237",
+      "title_chinese": "道德經第三十三章",
+      "title": "Tao Te Ching Chapter Thirty-Three",
+      "author_chinese": "老子",
+      "author": "Laozi",
+      "content": "知人者智 自知者明。勝人者有力 自勝者強。知足者富 強行者有志。不失其所者久 死而不亡者壽。",
+      "translation_english": "Knowing others is intelligence; knowing yourself is true wisdom. Mastering others is strength; mastering yourself is true power. Knowing contentment is wealth. Perseverance is a sign of will. Those who stay where they are endure. To die but not be forgotten is to be truly long-lived."
+    },
+    "238": {
+      "id": "238",
+      "title_chinese": "道德經第七十六章",
+      "title": "Tao Te Ching Chapter Seventy-Six",
+      "author_chinese": "老子",
+      "author": "Laozi",
+      "content": "人之生也柔弱 其死也堅強。萬物草木之生也柔脆 其死也枯槁。故堅強者死之徒 柔弱者生之徒。是以兵強則不勝 木強則折。強大處下 柔弱處上。",
+      "translation_english": "When alive, a person is soft and supple; when dead, hard and stiff. All living plants are soft and tender; when dead, they become brittle and dry. Thus the stiff and unbending is the follower of death, the soft and yielding is the follower of life. Therefore, an army without flexibility never wins; a tree that is unbending is easily broken. The hard and strong will fall; the soft and weak will overcome."
+    },
+    "239": {
+      "id": "239",
+      "title_chinese": "道德經第八十一章",
+      "title": "Tao Te Ching Chapter Eighty-One",
+      "author_chinese": "老子",
+      "author": "Laozi",
+      "content": "信言不美 美言不信。善者不辯 辯者不善。知者不博 博者不知。聖人不積 既以為人己愈有 既以與人己愈多。天之道 利而不害。聖人之道 為而不爭。",
+      "translation_english": "Truthful words are not beautiful; beautiful words are not truthful. Good words are not persuasive; persuasive words are not good. The wise are not learned; the learned are not wise. The sage does not hoard. The more he does for others, the more he has. The more he gives, the more he receives. The Tao of heaven is to benefit without harming. The Tao of the sage is to act without competing."
+    },
+    "240": {
+      "id": "240",
+      "title_chinese": "大鵬一日同風起",
+      "title": "One Day the Great Peng Rises with the Wind",
+      "author_chinese": "李白",
+      "author": "Li Bai",
+      "content": "大鵬一日同風起 摶搖直上九萬里。假令風歇時下來 猶能簸卻滄溟水。世人見我恆殊調 聞余大言皆冷笑。宣父猶能畏後生 丈夫未可輕年少。",
+      "translation_english": "One day the great Peng rises with the wind, spiraling straight up ninety thousand miles. Should the wind cease and it descend, it could still churn up all the ocean waters. People see me always striking different notes; hearing my grand talk, they all laugh coldly. Even Confucius warned to respect the young — a true man must never look down on youth."
+    },
+    "241": {
+      "id": "241",
+      "title_chinese": "養生主結語",
+      "title": "Conclusion of Nourishing the Lord of Life",
+      "author_chinese": "莊子",
+      "author": "Zhuangzi",
+      "content": "吾生也有涯 而知也無涯。以有涯隨無涯 殆已。已而為知者 殆而已矣。為善無近名 為惡無近刑。緣督以為經 可以保身 可以全生 可以養親 可以盡年。",
+      "translation_english": "My life has a limit, but knowledge has none. To pursue the limitless with what is limited is dangerous. Knowing this and still pursuing knowledge is even more dangerous. In doing good, avoid fame; in doing evil, avoid punishment. Follow the middle path as your constant way — you may protect your body, preserve your life, care for your parents, and live out your years."
+    },
+    "242": {
+      "id": "242",
+      "title_chinese": "相濡以沫",
+      "title": "Moistening Each Other with Spit",
+      "author_chinese": "莊子",
+      "author": "Zhuangzi",
+      "content": "泉涸 魚相與處於陸 相呴以濕 相濡以沫 不如相忘於江湖。與其譽堯而非桀也 不如兩忘而化其道。",
+      "translation_english": "When the springs dry up and fish are left stranded on land, they moisten each other with their breath, keep each other wet with their spit — but it would be better if they could forget each other in the rivers and lakes. Rather than praising Yao and condemning Jie, it would be better to forget both and transform with the Way."
+    },
+    "243": {
+      "id": "243",
+      "title_chinese": "莊子妻死",
+      "title": "When Zhuangzi's Wife Died",
+      "author_chinese": "莊子",
+      "author": "Zhuangzi",
+      "content": "莊子妻死 惠子弔之 莊子則方箕踞鼓盆而歌。惠子曰：「與人居 長子老身 死不哭亦足矣 又鼓盆而歌 不亦甚乎！」莊子曰：「不然。是其始死也 我獨何能無概然。察其始而本無生 非徒無生也而本無形 非徒無形也而本無氣。」",
+      "translation_english": "When Zhuangzi's wife died, Huizi came to offer his condolences. He found Zhuangzi sitting with his legs sprawled out, drumming on a tub and singing. Huizi said: 'You lived with her, raised children, grew old together. Not weeping at her death would be enough, but drumming on a tub and singing — isn't that too much?' Zhuangzi said: 'Not so. When she first died, how could I not feel grief? But I looked back to the beginning — originally there was no life. Not only no life, but originally no form. Not only no form, but originally no vital breath.'"
     }
   }
   

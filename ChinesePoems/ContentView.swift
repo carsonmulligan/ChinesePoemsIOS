@@ -82,7 +82,8 @@ struct PoemDetailView: View {
     @Binding var showTranslation: Bool
     @State private var showPinyin = false
     @State private var pinyinDictionary: [String: DictionaryEntry] = [:]
-    
+    @State private var showSpeedReader = false
+
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(spacing: 0) {
@@ -99,9 +100,16 @@ struct PoemDetailView: View {
         .navigationTitle(showTranslation ? poem.title : poem.title_chinese)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
-                if !showTranslation {
-                    Button(showPinyin ? "Hide Pinyin" : "Show Pinyin") {
-                        showPinyin.toggle()
+                HStack(spacing: 12) {
+                    if !showTranslation {
+                        Button(showPinyin ? "Hide Pinyin" : "Show Pinyin") {
+                            showPinyin.toggle()
+                        }
+                    }
+                    Button {
+                        showSpeedReader = true
+                    } label: {
+                        Image(systemName: "play.circle")
                     }
                 }
             }
@@ -110,6 +118,9 @@ struct PoemDetailView: View {
                     showTranslation.toggle()
                 }
             }
+        }
+        .fullScreenCover(isPresented: $showSpeedReader) {
+            SpeedReaderView(poem: poem, pinyinDictionary: pinyinDictionary)
         }
         .onAppear {
             loadPinyinDictionary()
