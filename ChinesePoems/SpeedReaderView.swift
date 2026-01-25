@@ -257,19 +257,6 @@ struct SpeedReaderView: View {
                         .foregroundColor(.white.opacity(0.5))
                 }
             }
-            .overlay(alignment: .top) {
-                Triangle()
-                    .fill(Color.red)
-                    .frame(width: 16, height: 12)
-                    .offset(y: -20)
-            }
-            .overlay(alignment: .bottom) {
-                Triangle()
-                    .fill(Color.red)
-                    .rotationEffect(.degrees(180))
-                    .frame(width: 16, height: 12)
-                    .offset(y: 20)
-            }
 
             // Progress indicator
             Text("\(manager.currentIndex + 1) / \(manager.characters.count)")
@@ -406,19 +393,6 @@ struct SpeedReaderView: View {
                 }
             }
         }
-    }
-}
-
-// MARK: - Triangle Shape
-
-struct Triangle: Shape {
-    func path(in rect: CGRect) -> Path {
-        var path = Path()
-        path.move(to: CGPoint(x: rect.midX, y: rect.minY))
-        path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
-        path.addLine(to: CGPoint(x: rect.minX, y: rect.maxY))
-        path.closeSubpath()
-        return path
     }
 }
 
