@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct ChinesePoemsApp: App {
+    @StateObject private var store = ProgressStore()
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            CourseHomeView()
+                .environmentObject(store)
         }
     }
 }
