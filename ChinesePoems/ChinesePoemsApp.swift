@@ -10,11 +10,13 @@ import SwiftUI
 @main
 struct ChinesePoemsApp: App {
     @StateObject private var store = ProgressStore()
+    @StateObject private var repo = PoemsRepository()
 
     var body: some Scene {
         WindowGroup {
-            CourseHomeView()
+            RootTabView()
                 .environmentObject(store)
+                .environmentObject(repo)
         }
     }
 }
