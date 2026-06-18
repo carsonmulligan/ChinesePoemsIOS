@@ -206,6 +206,9 @@ PROSE = [
     ("prose_chushi", "前出師表", "出師表", "Memorial on Dispatching the Troops", "諸葛亮", "Zhuge Liang", "Advanced"),
     ("prose_chibi", "前赤壁賦", "赤壁賦", "First Red Cliff Rhapsody", "蘇軾", "Su Shi", "Advanced"),
     ("prose_shaonian", "少年中國說", "少年中國說", "Ode to Young China", "梁啟超", "Liang Qichao", "Master"),
+    ("prose_zhongyong", "禮記/中庸", "中庸", "The Doctrine of the Mean", "子思", "Zisi", "Intermediate"),
+    ("prose_jianai", "墨子/兼愛上", "兼愛上", "Universal Love, Part I", "墨子", "Mozi", "Advanced"),
+    ("prose_feigong", "墨子/非攻上", "非攻上", "Against Offensive Warfare, Part I", "墨子", "Mozi", "Advanced"),
 ]
 prose = []
 for key, page, tc, t, ac, a, tier in PROSE:
