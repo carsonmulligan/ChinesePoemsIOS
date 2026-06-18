@@ -1,0 +1,122 @@
+{
+  "fable_1": {
+    "title_chinese": "畫蛇添足",
+    "title": "Adding Feet to a Snake",
+    "author_chinese": "戰國策",
+    "author": "Zhanguoce (Intrigues of the Warring States)",
+    "content": "楚有祠者 賜其舍人卮酒 舍人相謂曰 數人飲之不足 一人飲之有餘 請畫地為蛇 先成者飲酒 一人蛇先成 引酒且飲之 乃左手持卮 右手畫蛇曰 吾能為之足 未成 一人之蛇成 奪其卮曰 蛇固無足 子安能為之足 遂飲其酒 為蛇足者 終亡其酒",
+    "translation_english": "A man of Chu, after a sacrifice, gave his retainers a single goblet of wine. The retainers said to one another, 'For several to drink it is not enough; for one to drink it is more than enough. Let us each draw a snake on the ground, and whoever finishes first shall drink the wine.' One man finished his snake first. He took up the goblet and was about to drink, when, holding the goblet in his left hand, he went on drawing with his right, saying, 'I can even add feet to it.' Before he had finished, another man completed his snake, snatched the goblet away, and said, 'A snake has no feet to begin with. How can you give it feet?' And he drank the wine. The man who added feet to the snake lost his wine in the end.",
+    "source": "Fables",
+    "tier_suggestion": "Foundations"
+  },
+  "fable_2": {
+    "title_chinese": "狐假虎威",
+    "title": "The Fox Borrows the Tiger's Might",
+    "author_chinese": "戰國策",
+    "author": "Zhanguoce (Intrigues of the Warring States)",
+    "content": "虎求百獸而食之 得狐 狐曰 子無敢食我也 天帝使我長百獸 今子食我 是逆天帝命也 子以我為不信 吾為子先行 子隨我後 觀百獸之見我而敢不走乎 虎以為然 故遂與之行 獸見之皆走 虎不知獸畏己而走也 以為畏狐也",
+    "translation_english": "A tiger hunted the beasts for his food and caught a fox. The fox said, 'You dare not eat me. The Emperor of Heaven has made me chief over all the beasts. If you eat me now, you defy the command of Heaven. If you think me untrustworthy, I will walk ahead of you, and you follow behind, and watch whether any of the beasts dare not flee at the sight of me.' The tiger thought this reasonable, and so went along with him. The beasts saw them and all fled. The tiger did not know that the beasts fled in fear of himself, and thought instead that they feared the fox.",
+    "source": "Fables",
+    "tier_suggestion": "Foundations"
+  },
+  "fable_3": {
+    "title_chinese": "鷸蚌相爭",
+    "title": "The Snipe and the Clam",
+    "author_chinese": "戰國策",
+    "author": "Zhanguoce (Intrigues of the Warring States)",
+    "content": "蚌方出曝 而鷸啄其肉 蚌合而箝其喙 鷸曰 今日不雨 明日不雨 即有死蚌 蚌亦謂鷸曰 今日不出 明日不出 即有死鷸 兩者不肯相舍 漁者得而並禽之",
+    "translation_english": "A clam had come out to bask in the sun, and a snipe pecked at its flesh. The clam shut tight and gripped the snipe's beak. The snipe said, 'If it does not rain today, and does not rain tomorrow, there will be a dead clam.' The clam replied to the snipe, 'If you do not get out today, and do not get out tomorrow, there will be a dead snipe.' Neither was willing to let go, and a fisherman came along and caught them both together.",
+    "source": "Fables",
+    "tier_suggestion": "Foundations"
+  },
+  "fable_4": {
+    "title_chinese": "守株待兔",
+    "title": "Waiting by the Stump for a Rabbit",
+    "author_chinese": "韓非子",
+    "author": "Han Feizi",
+    "content": "宋人有耕者 田中有株 兔走觸株 折頸而死 因釋其耒而守株 冀復得兔 兔不可復得 而身為宋國笑",
+    "translation_english": "Among the people of Song there was a farmer. In his field stood the stump of a tree. A rabbit, running by, struck the stump, broke its neck, and died. Thereupon the farmer set aside his plough and kept watch by the stump, hoping to get another rabbit. But no other rabbit could be got, and he became the laughingstock of the state of Song.",
+    "source": "Fables",
+    "tier_suggestion": "Foundations"
+  },
+  "fable_5": {
+    "title_chinese": "刻舟求劍",
+    "title": "Notching the Boat to Find the Sword",
+    "author_chinese": "呂氏春秋",
+    "author": "Lüshi Chunqiu (Master Lü's Spring and Autumn Annals)",
+    "content": "楚人有涉江者 其劍自舟中墜於水 遽契其舟曰 是吾劍之所從墜也 舟止 從其所契者入水求之 舟已行矣 而劍不行 求劍若此 不亦惑乎",
+    "translation_english": "There was a man of Chu crossing a river. His sword fell from the boat into the water. At once he made a notch in the boat, saying, 'This is the place from which my sword fell.' When the boat stopped, he got into the water to look for the sword at the place he had notched. But the boat had moved, while the sword had not. To seek a sword in this way, is it not foolish?",
+    "source": "Fables",
+    "tier_suggestion": "Foundations"
+  },
+  "fable_6": {
+    "title_chinese": "揠苗助長",
+    "title": "Pulling up Sprouts to Help Them Grow",
+    "author_chinese": "孟子",
+    "author": "Mengzi (Mencius)",
+    "content": "宋人有閔其苗之不長而揠之者 芒芒然歸 謂其人曰 今日病矣 予助苗長矣 其子趨而往視之 苗則槁矣 天下之不助苗長者寡矣 以為無益而舍之者 不耘苗者也 助之長者 揠苗者也 非徒無益 而又害之",
+    "translation_english": "There was a man of Song who grieved that his sprouts were not growing, and so he pulled at them. Wearily he returned home and said to his people, 'I am worn out today; I have been helping the sprouts to grow.' His son hurried out to look at them, and the sprouts had all withered. Few in the world are those who do not try to help their sprouts grow. Those who think it useless and abandon them are the ones who do not weed their sprouts. Those who try to help them grow are the ones who pull at the sprouts. Not only does it do no good, it actually does harm.",
+    "source": "Fables",
+    "tier_suggestion": "Foundations"
+  },
+  "fable_7": {
+    "title_chinese": "愚公移山",
+    "title": "The Foolish Old Man Moves the Mountains",
+    "author_chinese": "列子",
+    "author": "Liezi",
+    "content": "太行 王屋二山 方七百里 高萬仞 本在冀州之南 河陽之北 北山愚公者 年且九十 面山而居 懲山北之塞 出入之迂也 聚室而謀曰 吾與汝畢力平險 指通豫南 達於漢陰 可乎 雜然相許 其妻獻疑曰 以君之力 曾不能損魁父之丘 如太行 王屋何 且焉置土石 雜曰 投諸渤海之尾 隱土之北 遂率子孫荷擔者三夫 叩石墾壤 箕畚運於渤海之尾 河曲智叟笑而止之曰 甚矣 汝之不惠 以殘年餘力 曾不能毀山之一毛 其如土石何 北山愚公長息曰 汝心之固 固不可徹 曾不若孀妻弱子 雖我之死 有子存焉 子又生孫 孫又生子 子又有子 子又有孫 子子孫孫 無窮匱也 而山不加增 何苦而不平 河曲智叟亡以應 帝感其誠 命夸蛾氏二子負二山 一厝朔東 一厝雍南 自此 冀之南 漢之陰 無隴斷焉",
+    "translation_english": "The two mountains Taihang and Wangwu were seven hundred li around and ten thousand fathoms high, lying originally south of Jizhou and north of Heyang. The Foolish Old Man of the North Mountain, nearly ninety years old, lived facing the mountains. Vexed by the way they blocked his comings and goings, he gathered his household and proposed, 'Let you and I strain every effort to level these heights, so that there may be a road straight through to the south of Yu, reaching the south bank of the Han. Can we do it?' They all agreed. His wife raised a doubt: 'With your strength you could not even level the little hill of Kuifu. What can you do with Taihang and Wangwu? And where will you put the earth and stones?' They said, 'We will cast them onto the edge of the Bohai Sea, north of Yintu.' So he led his sons and grandsons, three men who could carry loads, breaking rocks and digging earth, and hauling it in baskets to the edge of the Bohai Sea. The Wise Old Man of the River Bend laughed and stopped him, saying, 'How foolish you are! With the strength of your remaining years you could not destroy a single blade of grass on the mountain. What can you do with the earth and stones?' The Foolish Old Man of the North Mountain heaved a long sigh and said, 'Your mind is so stubborn it cannot be opened; you are not even the equal of a widow or a weak child. Though I shall die, my sons will remain. My sons will beget grandsons, and the grandsons will beget sons again; the sons will have sons, and those sons will have grandsons. Sons and grandsons without end, while the mountains grow no higher. Why should we worry that they will not be levelled?' The Wise Old Man of the River Bend had nothing to reply. The Emperor of Heaven was moved by his sincerity and commanded the two sons of Kua'e to carry the mountains away, setting one to the east of Shuo and one to the south of Yong. From then on, from the south of Ji to the south bank of the Han, there was no high ground to block the way.",
+    "source": "Fables",
+    "tier_suggestion": "Foundations"
+  },
+  "fable_8": {
+    "title_chinese": "杞人憂天",
+    "title": "The Man of Qi Who Feared the Sky",
+    "author_chinese": "列子",
+    "author": "Liezi",
+    "content": "杞國有人 憂天地崩墜 身亡所寄 廢寢食者 又有憂彼之所憂者 因往曉之曰 天積氣耳 亡處亡氣 若屈伸呼吸 終日在天中行止 奈何憂崩墜乎 其人曰 天果積氣 日月星宿不當墜邪 曉之者曰 日月星宿 亦積氣中之有光耀者 只使墜 亦不能有所中傷 其人曰 奈地壞何 曉者曰 地積塊耳 充塞四虛 亡處亡塊 若躇步跐蹈 終日在地上行止 奈何憂其壞 其人舍然大喜 曉之者亦舍然大喜",
+    "translation_english": "In the state of Qi there was a man who worried that the sky and earth might collapse and fall, leaving him with nowhere to live, so that he stopped sleeping and eating. Another man, troubled by his worry, went to enlighten him, saying, 'The sky is only accumulated air; there is no place without air. As you bend and stretch and breathe, you move about all day within the sky. Why worry that it will collapse and fall?' The man said, 'If the sky is really accumulated air, should not the sun, moon, and stars fall down?' The one enlightening him said, 'The sun, moon, and stars are only the shining things within the accumulated air. Even if they did fall, they could not hurt anyone.' The man said, 'But what of the earth breaking apart?' He answered, 'The earth is only accumulated lumps, filling up the void on every side; there is no place without these lumps. As you walk and stamp and tread, you move about all day upon the earth. Why worry that it will break apart?' At this the man was greatly relieved and rejoiced, and the one who had enlightened him was also greatly relieved and rejoiced.",
+    "source": "Fables",
+    "tier_suggestion": "Foundations"
+  },
+  "fable_9": {
+    "title_chinese": "矛盾",
+    "title": "The Spear and the Shield",
+    "author_chinese": "韓非子",
+    "author": "Han Feizi",
+    "content": "楚人有鬻盾與矛者 譽之曰 吾盾之堅 物莫能陷也 又譽其矛曰 吾矛之利 於物無不陷也 或曰 以子之矛陷子之盾 何如 其人弗能應也 夫不可陷之盾與無不陷之矛 不可同世而立",
+    "translation_english": "There was a man of Chu who sold shields and spears. Praising his shields, he said, 'My shields are so strong that nothing can pierce them.' Praising his spears, he said, 'My spears are so sharp that there is nothing they cannot pierce.' Someone asked, 'What if I take your spear and try to pierce your shield?' The man could make no reply. For a shield that cannot be pierced and a spear that pierces everything cannot both exist in the same world.",
+    "source": "Fables",
+    "tier_suggestion": "Foundations"
+  },
+  "fable_10": {
+    "title_chinese": "鄭人買履",
+    "title": "The Man of Zheng Buys Shoes",
+    "author_chinese": "韓非子",
+    "author": "Han Feizi",
+    "content": "鄭人有欲買履者 先自度其足 而置之其坐 至之市 而忘操之 已得履 乃曰 吾忘持度 反歸取之 及反 市罷 遂不得履 人曰 何不試之以足 曰 寧信度 無自信也",
+    "translation_english": "There was a man of Zheng who wished to buy shoes. First he measured his own foot and set the measurement down on his seat. When he reached the market, he had forgotten to bring it with him. Having found the shoes, he said, 'I have forgotten to bring my measurement,' and turned back home to fetch it. By the time he returned, the market had broken up, and so he got no shoes. Someone asked, 'Why did you not just try them on with your foot?' He replied, 'I would rather trust the measurement than trust myself.'",
+    "source": "Fables",
+    "tier_suggestion": "Foundations"
+  },
+  "fable_11": {
+    "title_chinese": "朝三暮四",
+    "title": "Three in the Morning, Four at Night",
+    "author_chinese": "莊子",
+    "author": "Zhuangzi",
+    "content": "狙公賦芧 曰 朝三而暮四 眾狙皆怒 曰 然則朝四而暮三 眾狙皆悅 名實未虧 而喜怒為用 亦因是也",
+    "translation_english": "A keeper of monkeys was handing out chestnuts. He said, 'In the morning three, and at night four.' At this all the monkeys were angry. So he said, 'Then in the morning four, and at night three.' At this all the monkeys were pleased. The name and the reality were unchanged, yet their joy and anger were set in play. This too is just a matter of going along with things.",
+    "source": "Fables",
+    "tier_suggestion": "Foundations"
+  },
+  "fable_12": {
+    "title_chinese": "塞翁失馬",
+    "title": "The Old Man of the Frontier Loses His Horse",
+    "author_chinese": "淮南子",
+    "author": "Huainanzi",
+    "content": "近塞上之人有善術者 馬無故亡而入胡 人皆弔之 其父曰 此何遽不為福乎 居數月 其馬將胡駿馬而歸 人皆賀之 其父曰 此何遽不能為禍乎 家富良馬 其子好騎 墮而折其髀 人皆弔之 其父曰 此何遽不為福乎 居一年 胡人大入塞 丁壯者引弦而戰 近塞之人 死者十九 此獨以跛之故 父子相保 故福之為禍 禍之為福 化不可極 深不可測也",
+    "translation_english": "Near the frontier there lived a man skilled in divination. His horse, for no reason, ran off into the land of the barbarians. Everyone consoled him, but his father said, 'How do you know this may not turn out to be a blessing?' After some months his horse returned, bringing with it a fine barbarian steed. Everyone congratulated him, but his father said, 'How do you know this may not turn out to be a misfortune?' The household was now rich in good horses, and his son loved to ride. The son fell and broke his thigh. Everyone consoled him, but his father said, 'How do you know this may not turn out to be a blessing?' A year later the barbarians invaded the frontier in force, and the able-bodied men took up their bows and went to war. Of those near the frontier, nine out of ten died. This man alone, because of his lameness, was spared, and father and son together kept their lives. Thus blessing turns to misfortune, and misfortune turns to blessing; the changes have no limit, and their depth cannot be fathomed.",
+    "source": "Fables",
+    "tier_suggestion": "Foundations"
+  }
+}
