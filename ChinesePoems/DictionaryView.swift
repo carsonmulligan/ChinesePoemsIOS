@@ -107,6 +107,9 @@ struct DictionaryView: View {
             }
             Spacer(minLength: 8)
 
+            SpeakButton(text: term, traditional: !store.useSimplified)
+                .padding(.trailing, 4)
+
             Button {
                 store.toggleSaved(term)
             } label: {

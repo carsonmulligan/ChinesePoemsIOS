@@ -75,15 +75,14 @@ struct FlashcardView: View {
 
     private func card(for word: String) -> some View {
         let entry = entries[word]
-        return Button {
-            withAnimation(.easeInOut(duration: 0.18)) { flipped.toggle() }
-        } label: {
+        return Group {
             VStack(spacing: 18) {
                 Text(word)
                     .font(Theme.serif(96, .medium))
                     .foregroundColor(Theme.ink)
 
                 if flipped {
+                    SpeakButton(text: word, traditional: !store.useSimplified, size: 26)
                     if let entry {
                         Text(entry.pinyin_tone_lines)
                             .font(Theme.label(22))
@@ -109,8 +108,11 @@ struct FlashcardView: View {
             .padding(.horizontal, 24)
             .background(RoundedRectangle(cornerRadius: 20).fill(Theme.paperRaised))
             .overlay(RoundedRectangle(cornerRadius: 20).stroke(Theme.hairline, lineWidth: 1))
+            .contentShape(Rectangle())
+            .onTapGesture {
+                withAnimation(.easeInOut(duration: 0.18)) { flipped.toggle() }
+            }
         }
-        .buttonStyle(.plain)
     }
 
     // MARK: Grade buttons

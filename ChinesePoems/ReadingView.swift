@@ -283,16 +283,19 @@ struct CharacterPopover: View {
 
             Rectangle().fill(Theme.hairline).frame(height: 0.5)
 
-            Button {
-                store.toggleSaved(charStr)
-            } label: {
-                HStack(spacing: 8) {
-                    Image(systemName: saved ? "heart.fill" : "heart")
-                    Text(saved ? "已存 · Saved" : "存 · Save character")
-                        .font(Theme.serif(15, .medium))
+            HStack(spacing: 16) {
+                Button {
+                    store.toggleSaved(charStr)
+                } label: {
+                    HStack(spacing: 8) {
+                        Image(systemName: saved ? "heart.fill" : "heart")
+                        Text(saved ? "已存 · Saved" : "存 · Save character")
+                            .font(Theme.serif(15, .medium))
+                    }
+                    .foregroundColor(saved ? Theme.cinnabar : Theme.ink)
                 }
-                .foregroundColor(saved ? Theme.cinnabar : Theme.ink)
-                .frame(maxWidth: .infinity, alignment: .leading)
+                Spacer()
+                SpeakButton(text: charStr, traditional: !store.useSimplified, size: 22)
             }
         }
         .padding(18)
