@@ -14,6 +14,18 @@ struct SentencePair: Codable, Hashable {
     let en: String
 }
 
+/// Component characters of a Make Me a Hanzi decomposition, dropping the
+/// Ideographic Description Characters (⿰⿱⿲…, U+2FF0–2FFB) that render as tofu.
+func decompositionComponents(_ decomposition: String) -> [String] {
+    decomposition.unicodeScalars.compactMap { scalar in
+        let v = scalar.value
+        if (0x2FF0...0x2FFB).contains(v) { return nil }
+        let ch = Character(scalar)
+        if ch == "？" || ch.isWhitespace { return nil }
+        return String(ch)
+    }
+}
+
 /// Split a CC-CEDICT definition ("/"-separated senses) into trimmed senses.
 func glossSenses(_ definition: String) -> [String] {
     definition

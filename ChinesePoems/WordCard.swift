@@ -29,6 +29,8 @@ struct WordCardView: View {
     @EnvironmentObject var repo: PoemsRepository
 
     @State private var strokeReplay = 0
+    @State private var strokeFullscreen: WordRef?   // tap a diagram to enlarge
+    @State private var showSaved = false
 
     private var entry: DictionaryEntry? { repo.entry(for: term) }
     private var isSingleChar: Bool { term.count == 1 }
@@ -42,7 +44,10 @@ struct WordCardView: View {
                 header
                 definitionSection
                 if isSingleChar { strokeSection }
-                else { breakdownSection }
+                else {
+                    breakdownSection
+                    wordStrokesSection
+                }
                 examplesSection
             }
             .padding(20)
@@ -51,6 +56,20 @@ struct WordCardView: View {
         .paperBackground()
         .navigationTitle(term)
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button { showSaved = true } label: {
+                    Image(systemName: "books.vertical")
+                }
+                .tint(Theme.cinnabar)
+            }
+        }
+        .fullScreenCover(item: $strokeFullscreen) { ref in
+            if let g = repo.strokes[ref.term] {
+                StrokeFullScreenView(term: ref.term, graphic: g)
+            }
+        }
+        .sheet(isPresented: $showSaved) { SavedWordsSheet() }
         .onAppear {
             repo.loadPinyinIfNeeded(); repo.loadWordsIfNeeded(); repo.loadStrokesIfNeeded()
             repo.loadRadicalsIfNeeded(); repo.loadSentencesIfNeeded()
@@ -84,9 +103,15 @@ struct WordCardView: View {
                 Spacer()
             }
             if let radical = repo.radicals[term], !radical.r.isEmpty {
-                Text("部首 \(radical.r)" + (radical.d.isEmpty || radical.d == "？" ? "" : "  ·  \(radical.d)"))
-                    .font(Theme.label(13))
-                    .foregroundColor(Theme.inkWhisper)
+                let comps = decompositionComponents(radical.d)
+                HStack(spacing: 14) {
+                    Text("部首 · \(radical.r)")
+                    if comps.count > 1 {
+                        Text("組成 · " + comps.joined(separator: " + "))
+                    }
+                }
+                .font(Theme.label(13))
+                .foregroundColor(Theme.inkWhisper)
             }
         }
     }
@@ -127,21 +152,65 @@ struct WordCardView: View {
             VStack(alignment: .leading, spacing: 10) {
                 sectionHeader("筆順 · \(graphic.s.count) strokes")
                 HStack(alignment: .top, spacing: 16) {
-                    StrokeOrderView(graphic: graphic)
-                        .id(strokeReplay)
-                        .frame(width: 180, height: 180)
-                        .background(RoundedRectangle(cornerRadius: 12).fill(Theme.paperSunken))
-                    Button { strokeReplay += 1 } label: {
-                        HStack(spacing: 5) {
-                            Image(systemName: "arrow.counterclockwise")
-                            Text("重播").font(Theme.serif(14, .medium))
+                    strokeTile(term, graphic: graphic, size: 200)
+                    VStack(alignment: .leading, spacing: 12) {
+                        Button { strokeReplay += 1 } label: {
+                            HStack(spacing: 5) {
+                                Image(systemName: "arrow.counterclockwise")
+                                Text("重播").font(Theme.serif(14, .medium))
+                            }
+                            .foregroundColor(Theme.cinnabar)
                         }
-                        .foregroundColor(Theme.cinnabar)
+                        Button { strokeFullscreen = WordRef(term: term) } label: {
+                            HStack(spacing: 5) {
+                                Image(systemName: "arrow.up.left.and.arrow.down.right")
+                                Text("放大").font(Theme.serif(14, .medium))
+                            }
+                            .foregroundColor(Theme.cinnabar)
+                        }
                     }
                     Spacer()
                 }
             }
         }
+    }
+
+    // MARK: Stroke order for each character (multi-character word)
+
+    @ViewBuilder
+    private var wordStrokesSection: some View {
+        let chars = breakdownChars.filter { repo.strokes[$0] != nil }
+        if !chars.isEmpty {
+            VStack(alignment: .leading, spacing: 10) {
+                sectionHeader("筆順 · stroke order")
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 14) {
+                        ForEach(Array(chars.enumerated()), id: \.offset) { _, char in
+                            if let g = repo.strokes[char] {
+                                strokeTile(char, graphic: g, size: 130)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /// A stroke diagram tile that replays on the card and enlarges on tap.
+    private func strokeTile(_ char: String, graphic: HanziGraphic, size: CGFloat) -> some View {
+        StrokeOrderView(graphic: graphic)
+            .id(strokeReplay)
+            .frame(width: size, height: size)
+            .background(RoundedRectangle(cornerRadius: 12).fill(Theme.paperSunken))
+            .overlay(RoundedRectangle(cornerRadius: 12).stroke(Theme.hairline, lineWidth: 1))
+            .overlay(alignment: .bottomTrailing) {
+                Image(systemName: "arrow.up.left.and.arrow.down.right")
+                    .font(.system(size: 12, weight: .semibold))
+                    .foregroundColor(Theme.inkWhisper)
+                    .padding(6)
+            }
+            .contentShape(Rectangle())
+            .onTapGesture { strokeFullscreen = WordRef(term: char) }
     }
 
     // MARK: Per-character breakdown (multi-character word)
@@ -210,5 +279,63 @@ struct WordCardView: View {
         Text(text)
             .font(Theme.label(12))
             .foregroundColor(Theme.inkWhisper)
+    }
+}
+
+// MARK: - Saved words sheet (browse / jump to other saved entries)
+
+struct SavedWordsSheet: View {
+    @EnvironmentObject var store: ProgressStore
+    @EnvironmentObject var repo: PoemsRepository
+    @Environment(\.dismiss) private var dismiss
+
+    private let cols = [GridItem(.adaptive(minimum: 64), spacing: 10)]
+
+    var body: some View {
+        NavigationStack {
+            Group {
+                if store.savedWords.isEmpty {
+                    VStack(spacing: 10) {
+                        Image(systemName: "books.vertical").font(.title).foregroundColor(Theme.inkWhisper)
+                        Text("尚無生字 · no saved words yet")
+                            .font(Theme.serif(15)).foregroundColor(Theme.inkFaded)
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                } else {
+                    ScrollView(showsIndicators: false) {
+                        LazyVGrid(columns: cols, spacing: 10) {
+                            ForEach(store.savedWords.sorted(), id: \.self) { word in
+                                NavigationLink(value: WordRef(term: word)) {
+                                    Text(word)
+                                        .font(Theme.serif(word.count > 1 ? 18 : 26, .medium))
+                                        .foregroundColor(Theme.cinnabar)
+                                        .lineLimit(1).minimumScaleFactor(0.6)
+                                        .frame(minWidth: 64, minHeight: 56)
+                                        .padding(.horizontal, 6)
+                                        .background(RoundedRectangle(cornerRadius: 10).fill(Theme.paperRaised))
+                                        .overlay(RoundedRectangle(cornerRadius: 10).stroke(Theme.hairline, lineWidth: 1))
+                                }
+                                .buttonStyle(.plain)
+                            }
+                        }
+                        .padding()
+                    }
+                }
+            }
+            .paperBackground()
+            .navigationTitle("生字簿 · \(store.savedWords.count) saved")
+            .navigationBarTitleDisplayMode(.inline)
+            .wordCardDestination()
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("完成") { dismiss() }.tint(Theme.cinnabar)
+                }
+            }
+        }
+        .tint(Theme.cinnabar)
+        .onAppear {
+            repo.loadPinyinIfNeeded(); repo.loadWordsIfNeeded()
+            repo.loadStrokesIfNeeded(); repo.loadRadicalsIfNeeded(); repo.loadSentencesIfNeeded()
+        }
     }
 }

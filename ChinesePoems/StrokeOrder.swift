@@ -109,7 +109,7 @@ struct StrokeOrderView: View {
                                         lineWidth: lineWidth, lineCap: .round, lineJoin: .round))
                             }
                     } else {
-                        filled.fill(Theme.hairline)   // faint guide for upcoming strokes
+                        filled.fill(Theme.inkWhisper)   // visible guide for upcoming strokes
                     }
                 }
             }
@@ -146,6 +146,53 @@ struct StrokeOrderView: View {
         let tx = rect.midX - bounds.midX * s
         let ty = rect.midY - bounds.midY * s
         return CGAffineTransform(translationX: tx, y: ty).scaledBy(x: s, y: s)
+    }
+}
+
+// MARK: - Full-screen stroke viewer
+
+struct StrokeFullScreenView: View {
+    let term: String
+    let graphic: HanziGraphic
+    @Environment(\.dismiss) private var dismiss
+    @State private var replay = 0
+
+    var body: some View {
+        VStack(spacing: 24) {
+            HStack {
+                Button { dismiss() } label: {
+                    Image(systemName: "xmark").font(.system(size: 16, weight: .medium))
+                        .foregroundColor(Theme.inkFaded)
+                }
+                Spacer()
+                Text("\(term) · \(graphic.s.count) 筆")
+                    .font(Theme.serif(17, .semibold)).foregroundColor(Theme.ink)
+                Spacer()
+                Image(systemName: "xmark").opacity(0)
+            }
+            .padding(.horizontal, 20).padding(.top, 16)
+
+            Spacer()
+            StrokeOrderView(graphic: graphic)
+                .id(replay)
+                .frame(width: 300, height: 300)
+                .background(RoundedRectangle(cornerRadius: 16).fill(Theme.paperSunken))
+                .overlay(RoundedRectangle(cornerRadius: 16).stroke(Theme.hairline, lineWidth: 1))
+            Spacer()
+
+            Button { replay += 1 } label: {
+                HStack(spacing: 8) {
+                    Image(systemName: "arrow.counterclockwise")
+                    Text("重播 · Replay").font(Theme.serif(16, .medium))
+                }
+                .foregroundColor(Color(hex: 0xFBF5E6))
+                .padding(.horizontal, 28).padding(.vertical, 13)
+                .background(Capsule().fill(Theme.cinnabar))
+            }
+            .padding(.bottom, 40)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .paperBackground()
     }
 }
 
