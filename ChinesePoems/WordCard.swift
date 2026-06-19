@@ -170,7 +170,7 @@ struct WordCardView: View {
                     Spacer()
                 }
             }
-        } else if repo.strokes.isEmpty {
+        } else if repo.strokesLoading {
             // Data still decoding (12MB, off-main) — show a placeholder, not nothing.
             VStack(alignment: .leading, spacing: 10) {
                 sectionHeader("筆順 · stroke order")
@@ -202,7 +202,7 @@ struct WordCardView: View {
                     }
                 }
             }
-        } else if repo.strokes.isEmpty {
+        } else if repo.strokesLoading {
             VStack(alignment: .leading, spacing: 10) {
                 sectionHeader("筆順 · stroke order")
                 HStack(spacing: 10) {

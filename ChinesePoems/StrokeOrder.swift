@@ -10,9 +10,10 @@
 import SwiftUI
 
 /// One character's graphics: SVG stroke outlines (`s`) and stroke medians (`m`).
+/// Median coordinates are Double — a handful of entries use fractional values.
 struct HanziGraphic: Codable {
     let s: [String]
-    let m: [[[Int]]]
+    let m: [[[Double]]]
 }
 
 /// Radical (`r`) and component decomposition (`d`) for a character.
@@ -57,12 +58,12 @@ enum SVGPath {
         return path
     }
 
-    static func median(_ points: [[Int]]) -> Path {
+    static func median(_ points: [[Double]]) -> Path {
         var path = Path()
-        guard let first = points.first else { return path }
-        path.move(to: CGPoint(x: CGFloat(first[0]), y: -CGFloat(first[1])))
-        for p in points.dropFirst() {
-            path.addLine(to: CGPoint(x: CGFloat(p[0]), y: -CGFloat(p[1])))
+        guard let first = points.first, first.count >= 2 else { return path }
+        path.move(to: CGPoint(x: first[0], y: -first[1]))
+        for p in points.dropFirst() where p.count >= 2 {
+            path.addLine(to: CGPoint(x: p[0], y: -p[1]))
         }
         return path
     }

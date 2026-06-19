@@ -52,6 +52,7 @@ final class PoemsRepository: ObservableObject {
     @Published private(set) var wordsLoading = false
     /// Make Me a Hanzi stroke graphics (corpus characters only).
     @Published private(set) var strokes: [String: HanziGraphic] = [:]
+    @Published private(set) var strokesLoading = false
     /// Radical + decomposition per character (Make Me a Hanzi dictionary).
     @Published private(set) var radicals: [String: RadicalInfo] = [:]
     /// Example sentences (Tatoeba cmn↔eng pairs).
@@ -112,6 +113,7 @@ final class PoemsRepository: ObservableObject {
     func loadStrokesIfNeeded() {
         guard !strokesLoaded else { return }
         strokesLoaded = true
+        strokesLoading = true
         Task.detached(priority: .userInitiated) {
             var decoded: [String: HanziGraphic] = [:]
             if let url = Bundle.main.url(forResource: "stroke_data", withExtension: "json"),
@@ -119,7 +121,10 @@ final class PoemsRepository: ObservableObject {
                let d = try? JSONDecoder().decode([String: HanziGraphic].self, from: data) {
                 decoded = d
             }
-            await MainActor.run { self.strokes = decoded }
+            await MainActor.run {
+                self.strokes = decoded
+                self.strokesLoading = false
+            }
         }
     }
 
