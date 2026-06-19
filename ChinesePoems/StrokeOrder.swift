@@ -96,13 +96,16 @@ struct StrokeOrderView: View {
             let lineWidth = 230 * scale(into: rect, pad: 14)
 
             ZStack {
+                // Full gray skeleton — always present so nothing ever disappears.
+                ForEach(strokes.indices, id: \.self) { idx in
+                    strokes[idx].applying(tf).fill(Theme.inkWhisper)
+                }
+                // Ink fills in on top of the skeleton, stroke by stroke.
                 ForEach(strokes.indices, id: \.self) { idx in
                     let filled = strokes[idx].applying(tf)
                     if idx < shown {
                         filled.fill(Theme.ink)
                     } else if idx == shown {
-                        // Fill the active stroke in the same ink as completed ones
-                        // so it just grows in, rather than flashing a colour.
                         let medianPath = (medians[safe: idx] ?? Path()).applying(tf)
                         filled.fill(Theme.ink)
                             .mask {
@@ -111,9 +114,8 @@ struct StrokeOrderView: View {
                                     .stroke(Color.white, style: StrokeStyle(
                                         lineWidth: lineWidth, lineCap: .round, lineJoin: .round))
                             }
-                    } else {
-                        filled.fill(Theme.inkWhisper)   // visible guide for upcoming strokes
                     }
+                    // idx > shown: nothing — the gray skeleton beneath shows through.
                 }
             }
         }
