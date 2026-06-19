@@ -2,7 +2,7 @@
 //  RootTabView.swift
 //  ChinesePoems
 //
-//  Three tabs: 閱讀 (Read), 尋 (Browse), 我 (Me).
+//  Four tabs: 閱讀 (Read), 尋 (Browse), 字 (Dictionary), 我 (Me).
 //
 
 import SwiftUI
@@ -14,6 +14,8 @@ struct RootTabView: View {
                 .tabItem { Label("閱讀", systemImage: "book") }
             BrowseView()
                 .tabItem { Label("尋", systemImage: "magnifyingglass") }
+            DictionaryView()
+                .tabItem { Label("字", systemImage: "character.book.closed") }
             MeView()
                 .tabItem { Label("我", systemImage: "person") }
         }

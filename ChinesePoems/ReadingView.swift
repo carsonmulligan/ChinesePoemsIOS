@@ -251,7 +251,7 @@ struct ChineseTextColumn: View {
 
 // MARK: - Character lookup popover (tap a character)
 
-private struct CharacterPopover: View {
+struct CharacterPopover: View {
     let charStr: String
     let entry: DictionaryEntry?
     @ObservedObject var store: ProgressStore

@@ -24,8 +24,6 @@ struct MeView: View {
                     statsRow
 
                     scriptToggle
-
-                    if !store.savedWords.isEmpty { savedWordsSection }
                 }
                 .padding(.vertical, 16)
             }
@@ -91,22 +89,4 @@ struct MeView: View {
         .padding(3)
     }
 
-    private var savedWordsSection: some View {
-        VStack(alignment: .leading, spacing: 14) {
-            SectionHeader(chinese: "生字簿", english: "Saved characters")
-            let cols = [GridItem(.adaptive(minimum: 52), spacing: 10)]
-            LazyVGrid(columns: cols, spacing: 10) {
-                ForEach(Array(store.savedWords).sorted(), id: \.self) { word in
-                    Text(word)
-                        .font(Theme.serif(24, .medium))
-                        .foregroundColor(Theme.ink)
-                        .frame(width: 52, height: 52)
-                        .background(RoundedRectangle(cornerRadius: 10).fill(Theme.paperRaised))
-                        .overlay(RoundedRectangle(cornerRadius: 10).stroke(Theme.hairline, lineWidth: 1))
-                        .onTapGesture { store.toggleSaved(word) }
-                }
-            }
-        }
-        .padding(.horizontal)
-    }
 }
