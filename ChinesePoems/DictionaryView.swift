@@ -13,7 +13,7 @@ struct DictionaryView: View {
     @EnvironmentObject var repo: PoemsRepository
 
     @State private var query = ""
-    @State private var selected: String?      // drives the lookup popover
+    @State private var path = NavigationPath()
     @State private var showPractice = false
     @State private var showRadicals = false
     @State private var showHandwritingTip = false
@@ -21,7 +21,7 @@ struct DictionaryView: View {
     private let resultCap = 60
 
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $path) {
             ScrollView(showsIndicators: false) {
                 LazyVStack(spacing: 0) {
                     if !store.savedWords.isEmpty { practiceBanner }
@@ -47,6 +47,7 @@ struct DictionaryView: View {
             .paperBackground()
             .navigationTitle("字")
             .navigationBarTitleDisplayMode(.inline)
+            .wordCardDestination()
             .searchable(text: $query, prompt: "查字詞 · character, word, pinyin, or meaning")
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
@@ -151,17 +152,7 @@ struct DictionaryView: View {
         .padding(.horizontal)
         .padding(.vertical, 12)
         .contentShape(Rectangle())
-        .onTapGesture { selected = term }
-        .popover(isPresented: Binding(
-            get: { selected == term },
-            set: { if !$0 { selected = nil } }
-        )) {
-            CharacterPopover(charStr: term, entry: entry, store: store,
-                             graphic: term.count == 1 ? repo.strokes[term] : nil,
-                             radical: repo.radicals[term],
-                             sentences: repo.sentences)
-                .presentationCompactAdaptation(.popover)
-        }
+        .onTapGesture { path.append(WordRef(term: term)) }
     }
 
     // MARK: Rows shown right now (search results, or the saved list)

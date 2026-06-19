@@ -203,6 +203,8 @@ struct ChineseTextColumn: View {
     @State private var selectedIndex: Int?
     // Bumped on every long-press save to fire a light haptic.
     @State private var saveHaptic = 0
+    // Set when the popover's "open card" is tapped → presents the full card.
+    @State private var cardRef: WordRef?
 
     var body: some View {
         VStack(spacing: 16) {
@@ -213,6 +215,17 @@ struct ChineseTextColumn: View {
         .frame(maxWidth: .infinity)
         .padding(.horizontal)
         .sensoryFeedback(.impact(weight: .light), trigger: saveHaptic)
+        .fullScreenCover(item: $cardRef) { ref in
+            NavigationStack {
+                WordCardView(term: ref.term)
+                    .wordCardDestination()
+                    .toolbar {
+                        ToolbarItem(placement: .topBarTrailing) {
+                            Button("完成") { cardRef = nil }.tint(Theme.cinnabar)
+                        }
+                    }
+            }
+        }
     }
 
     @ViewBuilder
@@ -261,7 +274,12 @@ struct ChineseTextColumn: View {
         )) {
             CharacterPopover(charStr: charStr, entry: entry, store: store,
                              graphic: strokes[charStr], radical: radicals[charStr],
-                             sentences: sentences)
+                             sentences: sentences,
+                             pinyinDict: pinyinDictionary,
+                             onOpenCard: {
+                                 selectedIndex = nil
+                                 cardRef = WordRef(term: charStr)
+                             })
                 .presentationCompactAdaptation(.popover)
         }
     }
@@ -276,6 +294,8 @@ struct CharacterPopover: View {
     var graphic: HanziGraphic? = nil
     var radical: RadicalInfo? = nil
     var sentences: [SentencePair] = []
+    var pinyinDict: [String: DictionaryEntry] = [:]
+    var onOpenCard: (() -> Void)? = nil
 
     @State private var strokeReplay = 0
 
@@ -348,6 +368,10 @@ struct CharacterPopover: View {
                     ForEach(examples, id: \.self) { s in
                         VStack(alignment: .leading, spacing: 2) {
                             Text(s.zh).font(Theme.serif(14)).foregroundColor(Theme.ink)
+                            let py = pinyinLine(for: s.zh, using: pinyinDict)
+                            if !py.isEmpty {
+                                Text(py).font(Theme.label(11)).foregroundColor(Theme.cinnabar)
+                            }
                             Text(s.en).font(Theme.serif(12)).foregroundColor(Theme.inkFaded)
                         }
                         .fixedSize(horizontal: false, vertical: true)
@@ -370,6 +394,17 @@ struct CharacterPopover: View {
                 }
                 Spacer()
                 SpeakButton(text: charStr, traditional: !store.useSimplified, size: 22)
+            }
+
+            if let onOpenCard {
+                Button(action: onOpenCard) {
+                    HStack(spacing: 6) {
+                        Text("查看詳情 · Open card").font(Theme.serif(14, .medium))
+                        Image(systemName: "chevron.right").font(.system(size: 12, weight: .semibold))
+                    }
+                    .foregroundColor(Theme.cinnabar)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                }
             }
         }
         .padding(18)

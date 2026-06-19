@@ -49,6 +49,7 @@ struct RadicalIndexView: View {
                     RadicalCharsView(radical: radical,
                                      chars: groups.first { $0.radical == radical }?.chars ?? [])
                 }
+                .wordCardDestination()
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
                         Button("完成") { dismiss() }.tint(Theme.cinnabar)
@@ -96,7 +97,6 @@ private struct RadicalCharsView: View {
     let chars: [String]
     @EnvironmentObject var store: ProgressStore
     @EnvironmentObject var repo: PoemsRepository
-    @State private var selected: String?
 
     private let cols = [GridItem(.adaptive(minimum: 52), spacing: 10)]
 
@@ -104,22 +104,15 @@ private struct RadicalCharsView: View {
         ScrollView(showsIndicators: false) {
             LazyVGrid(columns: cols, spacing: 10) {
                 ForEach(chars, id: \.self) { char in
-                    Text(char)
-                        .font(Theme.serif(26, .medium))
-                        .foregroundColor(store.isSaved(char) ? Theme.cinnabar : Theme.ink)
-                        .frame(width: 52, height: 52)
-                        .background(RoundedRectangle(cornerRadius: 10).fill(Theme.paperRaised))
-                        .overlay(RoundedRectangle(cornerRadius: 10).stroke(Theme.hairline, lineWidth: 1))
-                        .onTapGesture { selected = char }
-                        .popover(isPresented: Binding(
-                            get: { selected == char },
-                            set: { if !$0 { selected = nil } }
-                        )) {
-                            CharacterPopover(charStr: char, entry: repo.entry(for: char), store: store,
-                                             graphic: repo.strokes[char], radical: repo.radicals[char],
-                                             sentences: repo.sentences)
-                                .presentationCompactAdaptation(.popover)
-                        }
+                    NavigationLink(value: WordRef(term: char)) {
+                        Text(char)
+                            .font(Theme.serif(26, .medium))
+                            .foregroundColor(store.isSaved(char) ? Theme.cinnabar : Theme.ink)
+                            .frame(width: 52, height: 52)
+                            .background(RoundedRectangle(cornerRadius: 10).fill(Theme.paperRaised))
+                            .overlay(RoundedRectangle(cornerRadius: 10).stroke(Theme.hairline, lineWidth: 1))
+                    }
+                    .buttonStyle(.plain)
                 }
             }
             .padding()

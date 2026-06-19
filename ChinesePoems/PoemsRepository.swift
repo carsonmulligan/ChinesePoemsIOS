@@ -14,6 +14,15 @@ struct SentencePair: Codable, Hashable {
     let en: String
 }
 
+/// Per-character tone-marked pinyin for a sentence (punctuation dropped).
+func pinyinLine(for sentence: String, using dict: [String: DictionaryEntry]) -> String {
+    sentence.compactMap { ch -> String? in
+        guard ch.isLetter, !ch.isASCII else { return nil }
+        return dict[String(ch)]?.pinyin_tone_lines
+    }
+    .joined(separator: " ")
+}
+
 @MainActor
 final class PoemsRepository: ObservableObject {
     @Published private(set) var poems: [Poem] = []
