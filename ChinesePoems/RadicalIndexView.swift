@@ -36,17 +36,7 @@ struct RadicalIndexView: View {
                 LazyVGrid(columns: cols, spacing: 10) {
                     ForEach(groups, id: \.radical) { group in
                         NavigationLink(value: group.radical) {
-                            VStack(spacing: 2) {
-                                Text(group.radical)
-                                    .font(Theme.serif(26, .medium))
-                                    .foregroundColor(Theme.ink)
-                                Text("\(group.chars.count)")
-                                    .font(Theme.label(10))
-                                    .foregroundColor(Theme.inkWhisper)
-                            }
-                            .frame(width: 56, height: 56)
-                            .background(RoundedRectangle(cornerRadius: 10).fill(Theme.paperRaised))
-                            .overlay(RoundedRectangle(cornerRadius: 10).stroke(Theme.hairline, lineWidth: 1))
+                            radicalCell(group.radical, count: group.chars.count)
                         }
                         .buttonStyle(.plain)
                     }
@@ -67,7 +57,24 @@ struct RadicalIndexView: View {
             }
         }
         .tint(Theme.cinnabar)
-        .onAppear { repo.loadRadicalsIfNeeded(); repo.loadStrokesIfNeeded(); repo.loadWordsIfNeeded() }
+        .onAppear {
+            repo.loadRadicalsIfNeeded(); repo.loadStrokesIfNeeded()
+            repo.loadWordsIfNeeded(); repo.loadSentencesIfNeeded()
+        }
+    }
+
+    private func radicalCell(_ radical: String, count: Int) -> some View {
+        VStack(spacing: 2) {
+            Text(radical)
+                .font(Theme.serif(26, .medium))
+                .foregroundColor(Theme.ink)
+            Text("\(count)")
+                .font(Theme.label(10))
+                .foregroundColor(Theme.inkWhisper)
+        }
+        .frame(width: 56, height: 56)
+        .background(RoundedRectangle(cornerRadius: 10).fill(Theme.paperRaised))
+        .overlay(RoundedRectangle(cornerRadius: 10).stroke(Theme.hairline, lineWidth: 1))
     }
 }
 
@@ -96,7 +103,8 @@ private struct RadicalCharsView: View {
                             set: { if !$0 { selected = nil } }
                         )) {
                             CharacterPopover(charStr: char, entry: repo.entry(for: char), store: store,
-                                             graphic: repo.strokes[char], radical: repo.radicals[char])
+                                             graphic: repo.strokes[char], radical: repo.radicals[char],
+                                             sentences: repo.sentences)
                                 .presentationCompactAdaptation(.popover)
                         }
                 }

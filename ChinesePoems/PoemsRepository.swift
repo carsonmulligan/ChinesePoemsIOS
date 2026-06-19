@@ -8,6 +8,12 @@
 
 import SwiftUI
 
+/// A Mandarin example sentence with its English translation (Tatoeba).
+struct SentencePair: Codable, Hashable {
+    let zh: String
+    let en: String
+}
+
 @MainActor
 final class PoemsRepository: ObservableObject {
     @Published private(set) var poems: [Poem] = []
@@ -19,11 +25,14 @@ final class PoemsRepository: ObservableObject {
     @Published private(set) var strokes: [String: HanziGraphic] = [:]
     /// Radical + decomposition per character (Make Me a Hanzi dictionary).
     @Published private(set) var radicals: [String: RadicalInfo] = [:]
+    /// Example sentences (Tatoeba cmn↔eng pairs).
+    @Published private(set) var sentences: [SentencePair] = []
 
     private var pinyinLoaded = false
     private var wordsLoaded = false
     private var strokesLoaded = false
     private var radicalsLoaded = false
+    private var sentencesLoaded = false
 
     init() { loadPoems() }
 
@@ -95,6 +104,31 @@ final class PoemsRepository: ObservableObject {
             return
         }
         radicals = decoded
+    }
+
+    /// Example sentences are ~5MB; decode off the main thread.
+    func loadSentencesIfNeeded() {
+        guard !sentencesLoaded else { return }
+        sentencesLoaded = true
+        Task.detached(priority: .userInitiated) {
+            var decoded: [SentencePair] = []
+            if let url = Bundle.main.url(forResource: "sentences", withExtension: "json"),
+               let data = try? Data(contentsOf: url),
+               let d = try? JSONDecoder().decode([SentencePair].self, from: data) {
+                decoded = d
+            }
+            await MainActor.run { self.sentences = decoded }
+        }
+    }
+
+    /// Up to `limit` example sentences containing `term`, shortest first.
+    func examples(for term: String, limit: Int = 3) -> [SentencePair] {
+        guard !term.isEmpty, !sentences.isEmpty else { return [] }
+        return sentences
+            .filter { $0.zh.contains(term) }
+            .sorted { $0.zh.count < $1.zh.count }
+            .prefix(limit)
+            .map { $0 }
     }
 
     /// Definition for a term, preferring the word dictionary (covers both

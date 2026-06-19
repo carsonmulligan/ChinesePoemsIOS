@@ -67,6 +67,7 @@ struct DictionaryView: View {
             repo.loadWordsIfNeeded()
             repo.loadStrokesIfNeeded()
             repo.loadRadicalsIfNeeded()
+            repo.loadSentencesIfNeeded()
         }
     }
 
@@ -145,7 +146,8 @@ struct DictionaryView: View {
         )) {
             CharacterPopover(charStr: term, entry: entry, store: store,
                              graphic: term.count == 1 ? repo.strokes[term] : nil,
-                             radical: repo.radicals[term])
+                             radical: repo.radicals[term],
+                             sentences: repo.sentences)
                 .presentationCompactAdaptation(.popover)
         }
     }

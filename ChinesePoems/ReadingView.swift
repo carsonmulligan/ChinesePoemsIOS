@@ -34,7 +34,8 @@ struct ReadingView: View {
                         pinyinDictionary: repo.pinyin,
                         store: store,
                         strokes: repo.strokes,
-                        radicals: repo.radicals
+                        radicals: repo.radicals,
+                        sentences: repo.sentences
                     )
                     .padding(.top, 28)
 
@@ -69,6 +70,7 @@ struct ReadingView: View {
             repo.loadPinyinIfNeeded()
             repo.loadStrokesIfNeeded()
             repo.loadRadicalsIfNeeded()
+            repo.loadSentencesIfNeeded()
             store.noteOpened(poem.id)
         }
     }
@@ -188,6 +190,7 @@ struct ChineseTextColumn: View {
     @ObservedObject var store: ProgressStore
     var strokes: [String: HanziGraphic] = [:]
     var radicals: [String: RadicalInfo] = [:]
+    var sentences: [SentencePair] = []
 
     // The character lives in a fixed-width centered slot so the column never
     // wobbles; pinyin lives in its own fixed-width gutter to the right.
@@ -257,7 +260,8 @@ struct ChineseTextColumn: View {
             set: { if !$0 { selectedIndex = nil } }
         )) {
             CharacterPopover(charStr: charStr, entry: entry, store: store,
-                             graphic: strokes[charStr], radical: radicals[charStr])
+                             graphic: strokes[charStr], radical: radicals[charStr],
+                             sentences: sentences)
                 .presentationCompactAdaptation(.popover)
         }
     }
@@ -271,8 +275,16 @@ struct CharacterPopover: View {
     @ObservedObject var store: ProgressStore
     var graphic: HanziGraphic? = nil
     var radical: RadicalInfo? = nil
+    var sentences: [SentencePair] = []
 
     @State private var strokeReplay = 0
+
+    private var examples: [SentencePair] {
+        guard !sentences.isEmpty else { return [] }
+        return sentences.filter { $0.zh.contains(charStr) }
+            .sorted { $0.zh.count < $1.zh.count }
+            .prefix(2).map { $0 }
+    }
 
     var body: some View {
         let saved = store.isSaved(charStr)
@@ -324,6 +336,22 @@ struct CharacterPopover: View {
                         }
                     }
                     Spacer(minLength: 0)
+                }
+            }
+
+            if !examples.isEmpty {
+                Rectangle().fill(Theme.hairline).frame(height: 0.5)
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("例句 · examples")
+                        .font(Theme.label(11))
+                        .foregroundColor(Theme.inkWhisper)
+                    ForEach(examples, id: \.self) { s in
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text(s.zh).font(Theme.serif(14)).foregroundColor(Theme.ink)
+                            Text(s.en).font(Theme.serif(12)).foregroundColor(Theme.inkFaded)
+                        }
+                        .fixedSize(horizontal: false, vertical: true)
+                    }
                 }
             }
 

@@ -40,6 +40,7 @@ struct MeView: View {
         VStack(spacing: 4) {
             Text("詞典 · CC-CEDICT (CC BY-SA 4.0) · MDBG")
             Text("筆順 · Make Me a Hanzi (MIT / Arphic PL)")
+            Text("例句 · Tatoeba (CC BY 2.0 FR)")
         }
         .font(Theme.label(11))
         .foregroundColor(Theme.inkWhisper)
