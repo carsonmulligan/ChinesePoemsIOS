@@ -243,12 +243,18 @@ struct EnglishTextColumn: View {
             .frame(maxWidth: .infinity)
             .padding(.top, 40)
         } else {
-            Text(text)
-                .font(Theme.serif(18))
-                .lineSpacing(8)
-                .foregroundColor(Theme.ink)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.horizontal)
+            // One word per row, stacked vertically and centered — mirrors the
+            // vertical Chinese column so the two readers feel like a pair.
+            VStack(spacing: 12) {
+                ForEach(Array(text.split(separator: " ").enumerated()), id: \.offset) { _, word in
+                    Text(String(word))
+                        .font(Theme.serif(18))
+                        .foregroundColor(Theme.ink)
+                        .fixedSize()
+                }
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.horizontal)
         }
     }
 }
