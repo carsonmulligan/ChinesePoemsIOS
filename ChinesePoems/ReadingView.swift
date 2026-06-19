@@ -16,6 +16,7 @@ struct ReadingView: View {
     @State private var showTranslation = false
     @State private var showPinyin = false
     @State private var showSpeedReader = false
+    @State private var showAudiobook = false
 
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
@@ -57,6 +58,9 @@ struct ReadingView: View {
         .safeAreaInset(edge: .bottom) { controlBar }
         .fullScreenCover(isPresented: $showSpeedReader) {
             SpeedReaderView(poem: poem, pinyinDictionary: repo.pinyin)
+        }
+        .fullScreenCover(isPresented: $showAudiobook) {
+            AudiobookView(poem: poem, traditional: !store.useSimplified)
         }
         .tint(Theme.cinnabar)
         .onAppear {
@@ -104,6 +108,9 @@ struct ReadingView: View {
             }
             controlButton(showTranslation ? "中" : "英", active: showTranslation) {
                 showTranslation.toggle()
+            }
+            controlButton("聽", active: false, system: "speaker.wave.2") {
+                showAudiobook = true
             }
             controlButton("讀", active: false, system: "play.circle") {
                 repo.loadPinyinIfNeeded()
