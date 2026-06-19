@@ -101,8 +101,10 @@ struct StrokeOrderView: View {
                     if idx < shown {
                         filled.fill(Theme.ink)
                     } else if idx == shown {
+                        // Fill the active stroke in the same ink as completed ones
+                        // so it just grows in, rather than flashing a colour.
                         let medianPath = (medians[safe: idx] ?? Path()).applying(tf)
-                        filled.fill(Theme.cinnabar)
+                        filled.fill(Theme.ink)
                             .mask {
                                 StaticShape(path: medianPath)
                                     .trim(from: 0, to: progress)
