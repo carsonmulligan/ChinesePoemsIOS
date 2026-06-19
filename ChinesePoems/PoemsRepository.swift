@@ -15,9 +15,15 @@ final class PoemsRepository: ObservableObject {
     /// CC-CEDICT word dictionary (≈198K entries, single chars + multi-char words).
     @Published private(set) var words: [String: DictionaryEntry] = [:]
     @Published private(set) var wordsLoading = false
+    /// Make Me a Hanzi stroke graphics (corpus characters only).
+    @Published private(set) var strokes: [String: HanziGraphic] = [:]
+    /// Radical + decomposition per character (Make Me a Hanzi dictionary).
+    @Published private(set) var radicals: [String: RadicalInfo] = [:]
 
     private var pinyinLoaded = false
     private var wordsLoaded = false
+    private var strokesLoaded = false
+    private var radicalsLoaded = false
 
     init() { loadPoems() }
 
@@ -62,6 +68,33 @@ final class PoemsRepository: ObservableObject {
                 self.wordsLoading = false
             }
         }
+    }
+
+    /// Stroke graphics are ~12MB; decode off the main thread.
+    func loadStrokesIfNeeded() {
+        guard !strokesLoaded else { return }
+        strokesLoaded = true
+        Task.detached(priority: .userInitiated) {
+            var decoded: [String: HanziGraphic] = [:]
+            if let url = Bundle.main.url(forResource: "stroke_data", withExtension: "json"),
+               let data = try? Data(contentsOf: url),
+               let d = try? JSONDecoder().decode([String: HanziGraphic].self, from: data) {
+                decoded = d
+            }
+            await MainActor.run { self.strokes = decoded }
+        }
+    }
+
+    /// Radical/decomposition data is small (~320KB); load synchronously.
+    func loadRadicalsIfNeeded() {
+        guard !radicalsLoaded else { return }
+        radicalsLoaded = true
+        guard let url = Bundle.main.url(forResource: "radicals", withExtension: "json"),
+              let data = try? Data(contentsOf: url),
+              let decoded = try? JSONDecoder().decode([String: RadicalInfo].self, from: data) else {
+            return
+        }
+        radicals = decoded
     }
 
     /// Definition for a term, preferring the word dictionary (covers both

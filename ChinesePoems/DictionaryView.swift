@@ -15,6 +15,7 @@ struct DictionaryView: View {
     @State private var query = ""
     @State private var selected: String?      // drives the lookup popover
     @State private var showPractice = false
+    @State private var showRadicals = false
 
     private let resultCap = 60
 
@@ -46,12 +47,27 @@ struct DictionaryView: View {
             .navigationTitle("字")
             .navigationBarTitleDisplayMode(.inline)
             .searchable(text: $query, prompt: "查字詞 · character, word, pinyin, or meaning")
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button { showRadicals = true } label: {
+                        Text("部").font(Theme.serif(18, .medium))
+                    }
+                    .tint(Theme.cinnabar)
+                }
+            }
             .fullScreenCover(isPresented: $showPractice) {
                 FlashcardView(words: practiceDeck, entries: repo.words, store: store)
             }
+            .sheet(isPresented: $showRadicals) {
+                RadicalIndexView()
+            }
         }
         .tint(Theme.cinnabar)
-        .onAppear { repo.loadWordsIfNeeded() }
+        .onAppear {
+            repo.loadWordsIfNeeded()
+            repo.loadStrokesIfNeeded()
+            repo.loadRadicalsIfNeeded()
+        }
     }
 
     // MARK: Practice banner
@@ -127,7 +143,9 @@ struct DictionaryView: View {
             get: { selected == term },
             set: { if !$0 { selected = nil } }
         )) {
-            CharacterPopover(charStr: term, entry: entry, store: store)
+            CharacterPopover(charStr: term, entry: entry, store: store,
+                             graphic: term.count == 1 ? repo.strokes[term] : nil,
+                             radical: repo.radicals[term])
                 .presentationCompactAdaptation(.popover)
         }
     }

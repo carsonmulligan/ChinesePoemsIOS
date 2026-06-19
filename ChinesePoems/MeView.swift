@@ -38,8 +38,8 @@ struct MeView: View {
 
     private var credits: some View {
         VStack(spacing: 4) {
-            Text("詞典 · CC-CEDICT (CC BY-SA 4.0)")
-            Text("MDBG · creativecommons.org/licenses/by-sa/4.0")
+            Text("詞典 · CC-CEDICT (CC BY-SA 4.0) · MDBG")
+            Text("筆順 · Make Me a Hanzi (MIT / Arphic PL)")
         }
         .font(Theme.label(11))
         .foregroundColor(Theme.inkWhisper)

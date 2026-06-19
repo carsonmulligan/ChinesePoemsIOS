@@ -32,7 +32,9 @@ struct ReadingView: View {
                         text: poem.content(simplified: store.useSimplified),
                         showPinyin: showPinyin,
                         pinyinDictionary: repo.pinyin,
-                        store: store
+                        store: store,
+                        strokes: repo.strokes,
+                        radicals: repo.radicals
                     )
                     .padding(.top, 28)
 
@@ -65,6 +67,8 @@ struct ReadingView: View {
         .tint(Theme.cinnabar)
         .onAppear {
             repo.loadPinyinIfNeeded()
+            repo.loadStrokesIfNeeded()
+            repo.loadRadicalsIfNeeded()
             store.noteOpened(poem.id)
         }
     }
@@ -182,6 +186,8 @@ struct ChineseTextColumn: View {
     let showPinyin: Bool
     let pinyinDictionary: [String: DictionaryEntry]
     @ObservedObject var store: ProgressStore
+    var strokes: [String: HanziGraphic] = [:]
+    var radicals: [String: RadicalInfo] = [:]
 
     // The character lives in a fixed-width centered slot so the column never
     // wobbles; pinyin lives in its own fixed-width gutter to the right.
@@ -250,7 +256,8 @@ struct ChineseTextColumn: View {
             get: { selectedIndex == index },
             set: { if !$0 { selectedIndex = nil } }
         )) {
-            CharacterPopover(charStr: charStr, entry: entry, store: store)
+            CharacterPopover(charStr: charStr, entry: entry, store: store,
+                             graphic: strokes[charStr], radical: radicals[charStr])
                 .presentationCompactAdaptation(.popover)
         }
     }
@@ -262,6 +269,10 @@ struct CharacterPopover: View {
     let charStr: String
     let entry: DictionaryEntry?
     @ObservedObject var store: ProgressStore
+    var graphic: HanziGraphic? = nil
+    var radical: RadicalInfo? = nil
+
+    @State private var strokeReplay = 0
 
     var body: some View {
         let saved = store.isSaved(charStr)
@@ -286,6 +297,34 @@ struct CharacterPopover: View {
                 Text("No dictionary entry · 暫無釋義")
                     .font(Theme.serif(14))
                     .foregroundColor(Theme.inkWhisper)
+            }
+
+            if let graphic {
+                Rectangle().fill(Theme.hairline).frame(height: 0.5)
+                HStack(alignment: .center, spacing: 12) {
+                    StrokeOrderView(graphic: graphic)
+                        .id(strokeReplay)            // changing id replays the animation
+                        .frame(width: 132, height: 132)
+                        .background(RoundedRectangle(cornerRadius: 10).fill(Theme.paperSunken))
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("筆順 · \(graphic.s.count) strokes")
+                            .font(Theme.label(12))
+                            .foregroundColor(Theme.inkFaded)
+                        if let radical, !radical.r.isEmpty {
+                            Text("部首 \(radical.r)")
+                                .font(Theme.serif(15))
+                                .foregroundColor(Theme.ink)
+                        }
+                        Button { strokeReplay += 1 } label: {
+                            HStack(spacing: 5) {
+                                Image(systemName: "arrow.counterclockwise")
+                                Text("重播").font(Theme.serif(13, .medium))
+                            }
+                            .foregroundColor(Theme.cinnabar)
+                        }
+                    }
+                    Spacer(minLength: 0)
+                }
             }
 
             Rectangle().fill(Theme.hairline).frame(height: 0.5)
