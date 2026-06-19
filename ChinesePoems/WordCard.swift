@@ -42,12 +42,10 @@ struct WordCardView: View {
         ScrollView(showsIndicators: false) {
             VStack(alignment: .leading, spacing: 24) {
                 header
-                definitionSection
                 if isSingleChar { strokeSection }
-                else {
-                    breakdownSection
-                    wordStrokesSection
-                }
+                else { wordStrokesSection }
+                definitionSection
+                if !isSingleChar { breakdownSection }
                 examplesSection
             }
             .padding(20)
@@ -164,13 +162,24 @@ struct WordCardView: View {
                         Button { strokeFullscreen = WordRef(term: term) } label: {
                             HStack(spacing: 5) {
                                 Image(systemName: "arrow.up.left.and.arrow.down.right")
-                                Text("放大").font(Theme.serif(14, .medium))
+                                Text("放大 · Enlarge").font(Theme.serif(14, .medium))
                             }
                             .foregroundColor(Theme.cinnabar)
                         }
                     }
                     Spacer()
                 }
+            }
+        } else if repo.strokes.isEmpty {
+            // Data still decoding (12MB, off-main) — show a placeholder, not nothing.
+            VStack(alignment: .leading, spacing: 10) {
+                sectionHeader("筆順 · stroke order")
+                HStack(spacing: 10) {
+                    ProgressView()
+                    Text("載入筆順 · loading…").font(Theme.label(13)).foregroundColor(Theme.inkFaded)
+                }
+                .frame(maxWidth: .infinity, minHeight: 120)
+                .background(RoundedRectangle(cornerRadius: 12).fill(Theme.paperSunken))
             }
         }
     }
@@ -192,6 +201,16 @@ struct WordCardView: View {
                         }
                     }
                 }
+            }
+        } else if repo.strokes.isEmpty {
+            VStack(alignment: .leading, spacing: 10) {
+                sectionHeader("筆順 · stroke order")
+                HStack(spacing: 10) {
+                    ProgressView()
+                    Text("載入筆順 · loading…").font(Theme.label(13)).foregroundColor(Theme.inkFaded)
+                }
+                .frame(maxWidth: .infinity, minHeight: 120)
+                .background(RoundedRectangle(cornerRadius: 12).fill(Theme.paperSunken))
             }
         }
     }
