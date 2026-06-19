@@ -14,6 +14,14 @@ struct SentencePair: Codable, Hashable {
     let en: String
 }
 
+/// Split a CC-CEDICT definition ("/"-separated senses) into trimmed senses.
+func glossSenses(_ definition: String) -> [String] {
+    definition
+        .split(separator: "/")
+        .map { $0.trimmingCharacters(in: .whitespaces) }
+        .filter { !$0.isEmpty }
+}
+
 /// Per-character tone-marked pinyin for a sentence (punctuation dropped).
 func pinyinLine(for sentence: String, using dict: [String: DictionaryEntry]) -> String {
     sentence.compactMap { ch -> String? in

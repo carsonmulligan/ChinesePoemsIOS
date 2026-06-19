@@ -93,18 +93,29 @@ struct WordCardView: View {
 
     // MARK: Definition
 
+    @ViewBuilder
     private var definitionSection: some View {
-        Group {
-            if let entry, !entry.definition.isEmpty {
-                Text(entry.definition)
-                    .font(Theme.serif(18))
-                    .foregroundColor(Theme.ink)
+        if let entry, !entry.definition.isEmpty {
+            let senses = glossSenses(entry.definition)
+            if senses.count <= 1 {
+                Text(senses.first ?? entry.definition)
+                    .font(Theme.serif(18)).foregroundColor(Theme.ink)
                     .fixedSize(horizontal: false, vertical: true)
             } else {
-                Text("No dictionary entry · 暫無釋義")
-                    .font(Theme.serif(15))
-                    .foregroundColor(Theme.inkWhisper)
+                VStack(alignment: .leading, spacing: 8) {
+                    ForEach(Array(senses.enumerated()), id: \.offset) { i, sense in
+                        HStack(alignment: .firstTextBaseline, spacing: 10) {
+                            Text("\(i + 1)").font(Theme.label(14)).foregroundColor(Theme.cinnabar)
+                                .frame(width: 18, alignment: .trailing)
+                            Text(sense).font(Theme.serif(17)).foregroundColor(Theme.ink)
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
+                    }
+                }
             }
+        } else {
+            Text("No dictionary entry · 暫無釋義")
+                .font(Theme.serif(15)).foregroundColor(Theme.inkWhisper)
         }
     }
 

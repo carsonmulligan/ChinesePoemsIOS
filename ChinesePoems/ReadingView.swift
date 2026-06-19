@@ -307,95 +307,37 @@ struct CharacterPopover: View {
     }
 
     var body: some View {
-        let saved = store.isSaved(charStr)
         VStack(alignment: .leading, spacing: 12) {
+            // Header — fixed.
             HStack(alignment: .firstTextBaseline, spacing: 12) {
                 Text(charStr)
                     .font(Theme.serif(40, .medium))
-                    .foregroundColor(saved ? Theme.cinnabar : Theme.ink)
+                    .foregroundColor(store.isSaved(charStr) ? Theme.cinnabar : Theme.ink)
                 if let entry, !entry.pinyin_tone_lines.isEmpty {
                     Text(entry.pinyin_tone_lines)
                         .font(Theme.label(18))
                         .foregroundColor(Theme.inkFaded)
                 }
+                Spacer(minLength: 0)
             }
 
-            if let entry, !entry.definition.isEmpty {
-                Text(entry.definition)
-                    .font(Theme.serif(15))
-                    .foregroundColor(Theme.ink)
-                    .fixedSize(horizontal: false, vertical: true)
-            } else {
-                Text("No dictionary entry · 暫無釋義")
-                    .font(Theme.serif(14))
-                    .foregroundColor(Theme.inkWhisper)
-            }
-
-            if let graphic {
-                Rectangle().fill(Theme.hairline).frame(height: 0.5)
-                HStack(alignment: .center, spacing: 12) {
-                    StrokeOrderView(graphic: graphic)
-                        .id(strokeReplay)            // changing id replays the animation
-                        .frame(width: 132, height: 132)
-                        .background(RoundedRectangle(cornerRadius: 10).fill(Theme.paperSunken))
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("筆順 · \(graphic.s.count) strokes")
-                            .font(Theme.label(12))
-                            .foregroundColor(Theme.inkFaded)
-                        if let radical, !radical.r.isEmpty {
-                            Text("部首 \(radical.r)")
-                                .font(Theme.serif(15))
-                                .foregroundColor(Theme.ink)
-                        }
-                        Button { strokeReplay += 1 } label: {
-                            HStack(spacing: 5) {
-                                Image(systemName: "arrow.counterclockwise")
-                                Text("重播").font(Theme.serif(13, .medium))
-                            }
-                            .foregroundColor(Theme.cinnabar)
-                        }
-                    }
-                    Spacer(minLength: 0)
+            // Scrollable middle — long definitions never push the actions off-screen.
+            ScrollView(showsIndicators: true) {
+                VStack(alignment: .leading, spacing: 12) {
+                    definitionView
+                    if let graphic { strokeBlock(graphic) }
+                    if !examples.isEmpty { examplesBlock }
                 }
             }
+            .frame(maxHeight: 260)
 
-            if !examples.isEmpty {
-                Rectangle().fill(Theme.hairline).frame(height: 0.5)
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("例句 · examples")
-                        .font(Theme.label(11))
-                        .foregroundColor(Theme.inkWhisper)
-                    ForEach(examples, id: \.self) { s in
-                        VStack(alignment: .leading, spacing: 2) {
-                            Text(s.zh).font(Theme.serif(14)).foregroundColor(Theme.ink)
-                            let py = pinyinLine(for: s.zh, using: pinyinDict)
-                            if !py.isEmpty {
-                                Text(py).font(Theme.label(11)).foregroundColor(Theme.cinnabar)
-                            }
-                            Text(s.en).font(Theme.serif(12)).foregroundColor(Theme.inkFaded)
-                        }
-                        .fixedSize(horizontal: false, vertical: true)
-                    }
-                }
-            }
-
+            // Pinned actions — always reachable.
             Rectangle().fill(Theme.hairline).frame(height: 0.5)
-
             HStack(spacing: 16) {
-                Button {
-                    store.toggleSaved(charStr)
-                } label: {
-                    HStack(spacing: 8) {
-                        Image(systemName: saved ? "heart.fill" : "heart")
-                        Text(saved ? "已存 · Saved" : "存 · Save character")
-                            .font(Theme.serif(15, .medium))
-                    }
-                    .foregroundColor(saved ? Theme.cinnabar : Theme.ink)
-                }
+                saveButton
                 Spacer()
                 SpeakButton(text: charStr, traditional: !store.useSimplified, size: 22)
             }
-
             if let onOpenCard {
                 Button(action: onOpenCard) {
                     HStack(spacing: 6) {
@@ -410,6 +352,91 @@ struct CharacterPopover: View {
         .padding(18)
         .frame(width: 248)
         .presentationBackground(Theme.paperRaised)
+    }
+
+    @ViewBuilder
+    private var definitionView: some View {
+        if let entry, !entry.definition.isEmpty {
+            let senses = glossSenses(entry.definition)
+            if senses.count <= 1 {
+                Text(senses.first ?? entry.definition)
+                    .font(Theme.serif(15)).foregroundColor(Theme.ink)
+                    .fixedSize(horizontal: false, vertical: true)
+            } else {
+                VStack(alignment: .leading, spacing: 6) {
+                    ForEach(Array(senses.enumerated()), id: \.offset) { i, sense in
+                        HStack(alignment: .firstTextBaseline, spacing: 8) {
+                            Text("\(i + 1)").font(Theme.label(12)).foregroundColor(Theme.cinnabar)
+                                .frame(width: 14, alignment: .trailing)
+                            Text(sense).font(Theme.serif(15)).foregroundColor(Theme.ink)
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
+                    }
+                }
+            }
+        } else {
+            Text("No dictionary entry · 暫無釋義")
+                .font(Theme.serif(14)).foregroundColor(Theme.inkWhisper)
+        }
+    }
+
+    private func strokeBlock(_ graphic: HanziGraphic) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Rectangle().fill(Theme.hairline).frame(height: 0.5)
+            HStack(alignment: .center, spacing: 12) {
+                StrokeOrderView(graphic: graphic)
+                    .id(strokeReplay)
+                    .frame(width: 120, height: 120)
+                    .background(RoundedRectangle(cornerRadius: 10).fill(Theme.paperSunken))
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("筆順 · \(graphic.s.count) strokes")
+                        .font(Theme.label(12)).foregroundColor(Theme.inkFaded)
+                    if let radical, !radical.r.isEmpty {
+                        Text("部首 \(radical.r)").font(Theme.serif(15)).foregroundColor(Theme.ink)
+                    }
+                    Button { strokeReplay += 1 } label: {
+                        HStack(spacing: 5) {
+                            Image(systemName: "arrow.counterclockwise")
+                            Text("重播").font(Theme.serif(13, .medium))
+                        }
+                        .foregroundColor(Theme.cinnabar)
+                    }
+                }
+                Spacer(minLength: 0)
+            }
+        }
+    }
+
+    private var examplesBlock: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Rectangle().fill(Theme.hairline).frame(height: 0.5)
+            Text("例句 · examples").font(Theme.label(11)).foregroundColor(Theme.inkWhisper)
+            ForEach(examples, id: \.self) { s in
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(s.zh).font(Theme.serif(14)).foregroundColor(Theme.ink)
+                    let py = pinyinLine(for: s.zh, using: pinyinDict)
+                    if !py.isEmpty {
+                        Text(py).font(Theme.label(11)).foregroundColor(Theme.cinnabar)
+                    }
+                    Text(s.en).font(Theme.serif(12)).foregroundColor(Theme.inkFaded)
+                }
+                .fixedSize(horizontal: false, vertical: true)
+            }
+        }
+    }
+
+    private var saveButton: some View {
+        let saved = store.isSaved(charStr)
+        return Button {
+            store.toggleSaved(charStr)
+        } label: {
+            HStack(spacing: 8) {
+                Image(systemName: saved ? "heart.fill" : "heart")
+                Text(saved ? "已存 · Saved" : "存 · Save")
+                    .font(Theme.serif(15, .medium))
+            }
+            .foregroundColor(saved ? Theme.cinnabar : Theme.ink)
+        }
     }
 }
 
