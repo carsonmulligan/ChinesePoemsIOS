@@ -8,24 +8,33 @@
 
 import SwiftUI
 
+struct RadicalGroup: Identifiable {
+    let radical: String
+    let chars: [String]
+    var id: String { radical }
+}
+
 struct RadicalIndexView: View {
     @EnvironmentObject var store: ProgressStore
     @EnvironmentObject var repo: PoemsRepository
     @Environment(\.dismiss) private var dismiss
 
-    /// (radical, characters) groups, radicals ordered by stroke count then glyph.
-    private var groups: [(radical: String, chars: [String])] {
+    /// Radical groups ordered by the radical's own stroke count, then glyph.
+    private var groups: [RadicalGroup] {
         var map: [String: [String]] = [:]
         for (char, info) in repo.radicals where !info.r.isEmpty {
             map[info.r, default: []].append(char)
         }
-        return map
-            .map { (radical: $0.key, chars: $0.value.sorted()) }
-            .sorted {
-                let a = repo.strokes[$0.radical]?.s.count ?? 99
-                let b = repo.strokes[$1.radical]?.s.count ?? 99
-                return a != b ? a < b : $0.radical < $1.radical
-            }
+        var result: [RadicalGroup] = []
+        for (radical, chars) in map {
+            result.append(RadicalGroup(radical: radical, chars: chars.sorted()))
+        }
+        result.sort { lhs, rhs in
+            let a = repo.strokes[lhs.radical]?.s.count ?? 99
+            let b = repo.strokes[rhs.radical]?.s.count ?? 99
+            return a != b ? a < b : lhs.radical < rhs.radical
+        }
+        return result
     }
 
     private let cols = [GridItem(.adaptive(minimum: 56), spacing: 10)]
@@ -56,7 +65,7 @@ struct RadicalIndexView: View {
     private var grid: some View {
         ScrollView(showsIndicators: false) {
             LazyVGrid(columns: cols, spacing: 10) {
-                ForEach(groups, id: \.radical) { group in
+                ForEach(groups) { group in
                     NavigationLink(value: group.radical) {
                         radicalCell(group.radical, count: group.chars.count)
                     }
