@@ -32,34 +32,38 @@ struct RadicalIndexView: View {
 
     var body: some View {
         NavigationStack {
-            ScrollView(showsIndicators: false) {
-                LazyVGrid(columns: cols, spacing: 10) {
-                    ForEach(groups, id: \.radical) { group in
-                        NavigationLink(value: group.radical) {
-                            radicalCell(group.radical, count: group.chars.count)
-                        }
-                        .buttonStyle(.plain)
+            grid
+                .paperBackground()
+                .navigationTitle("部首 · Radicals")
+                .navigationBarTitleDisplayMode(.inline)
+                .navigationDestination(for: String.self) { radical in
+                    RadicalCharsView(radical: radical,
+                                     chars: groups.first { $0.radical == radical }?.chars ?? [])
+                }
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button("完成") { dismiss() }.tint(Theme.cinnabar)
                     }
                 }
-                .padding()
-            }
-            .paperBackground()
-            .navigationTitle("部首 · Radicals")
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationDestination(for: String.self) { radical in
-                RadicalCharsView(radical: radical,
-                                 chars: groups.first { $0.radical == radical }?.chars ?? [])
-            }
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("完成") { dismiss() }.tint(Theme.cinnabar)
-                }
-            }
         }
         .tint(Theme.cinnabar)
         .onAppear {
             repo.loadRadicalsIfNeeded(); repo.loadStrokesIfNeeded()
             repo.loadWordsIfNeeded(); repo.loadSentencesIfNeeded()
+        }
+    }
+
+    private var grid: some View {
+        ScrollView(showsIndicators: false) {
+            LazyVGrid(columns: cols, spacing: 10) {
+                ForEach(groups, id: \.radical) { group in
+                    NavigationLink(value: group.radical) {
+                        radicalCell(group.radical, count: group.chars.count)
+                    }
+                    .buttonStyle(.plain)
+                }
+            }
+            .padding()
         }
     }
 

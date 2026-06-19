@@ -16,6 +16,7 @@ struct DictionaryView: View {
     @State private var selected: String?      // drives the lookup popover
     @State private var showPractice = false
     @State private var showRadicals = false
+    @State private var showHandwritingTip = false
 
     private let resultCap = 60
 
@@ -48,12 +49,23 @@ struct DictionaryView: View {
             .navigationBarTitleDisplayMode(.inline)
             .searchable(text: $query, prompt: "查字詞 · character, word, pinyin, or meaning")
             .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button { showHandwritingTip = true } label: {
+                        Image(systemName: "hand.draw")
+                    }
+                    .tint(Theme.cinnabar)
+                }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button { showRadicals = true } label: {
                         Text("部").font(Theme.serif(18, .medium))
                     }
                     .tint(Theme.cinnabar)
                 }
+            }
+            .alert("手寫輸入 · Handwriting", isPresented: $showHandwritingTip) {
+                Button("好") { }
+            } message: {
+                Text("Tap the search box, then press 🌐 on the keyboard and choose Chinese Handwriting to draw characters.\n\nFirst time: enable it in Settings → General → Keyboard → Keyboards → Add New Keyboard → 中文(简体) or (繁體) → 手寫.")
             }
             .fullScreenCover(isPresented: $showPractice) {
                 FlashcardView(words: practiceDeck, entries: repo.words, store: store)
