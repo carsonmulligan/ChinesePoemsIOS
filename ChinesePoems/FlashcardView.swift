@@ -11,9 +11,9 @@
 import SwiftUI
 
 struct FlashcardView: View {
-    /// The characters to review this session (already chosen by the caller).
+    /// The characters/words to review this session (already chosen by the caller).
     let words: [String]
-    let pinyin: [String: DictionaryEntry]
+    let entries: [String: DictionaryEntry]
     @ObservedObject var store: ProgressStore
     @Environment(\.dismiss) private var dismiss
 
@@ -74,7 +74,7 @@ struct FlashcardView: View {
     // MARK: Card
 
     private func card(for word: String) -> some View {
-        let entry = pinyin[word]
+        let entry = entries[word]
         return Button {
             withAnimation(.easeInOut(duration: 0.18)) { flipped.toggle() }
         } label: {

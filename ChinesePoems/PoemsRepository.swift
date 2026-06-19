@@ -12,8 +12,12 @@ import SwiftUI
 final class PoemsRepository: ObservableObject {
     @Published private(set) var poems: [Poem] = []
     @Published private(set) var pinyin: [String: DictionaryEntry] = [:]
+    /// CC-CEDICT word dictionary (≈198K entries, single chars + multi-char words).
+    @Published private(set) var words: [String: DictionaryEntry] = [:]
+    @Published private(set) var wordsLoading = false
 
     private var pinyinLoaded = false
+    private var wordsLoaded = false
 
     init() { loadPoems() }
 
@@ -38,6 +42,33 @@ final class PoemsRepository: ObservableObject {
             return
         }
         pinyin = decoded
+    }
+
+    /// The CC-CEDICT word dictionary is ~25MB; decode it off the main thread so
+    /// the 字 tab stays responsive, then publish on the main actor.
+    func loadWordsIfNeeded() {
+        guard !wordsLoaded else { return }
+        wordsLoaded = true
+        wordsLoading = true
+        Task.detached(priority: .userInitiated) {
+            var decoded: [String: DictionaryEntry] = [:]
+            if let url = Bundle.main.url(forResource: "cedict_words", withExtension: "json"),
+               let data = try? Data(contentsOf: url),
+               let d = try? JSONDecoder().decode([String: DictionaryEntry].self, from: data) {
+                decoded = d
+            }
+            await MainActor.run {
+                self.words = decoded
+                self.wordsLoading = false
+            }
+        }
+    }
+
+    /// Definition for a term, preferring the word dictionary (covers both
+    /// multi-character words and single characters) and falling back to the
+    /// reader's character dictionary.
+    func entry(for term: String) -> DictionaryEntry? {
+        words[term] ?? pinyin[term]
     }
 
     // MARK: Queries

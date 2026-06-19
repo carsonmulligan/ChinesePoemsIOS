@@ -24,6 +24,8 @@ struct MeView: View {
                     statsRow
 
                     scriptToggle
+
+                    credits
                 }
                 .padding(.vertical, 16)
             }
@@ -32,6 +34,17 @@ struct MeView: View {
             .navigationBarTitleDisplayMode(.inline)
         }
         .tint(Theme.cinnabar)
+    }
+
+    private var credits: some View {
+        VStack(spacing: 4) {
+            Text("詞典 · CC-CEDICT (CC BY-SA 4.0)")
+            Text("MDBG · creativecommons.org/licenses/by-sa/4.0")
+        }
+        .font(Theme.label(11))
+        .foregroundColor(Theme.inkWhisper)
+        .multilineTextAlignment(.center)
+        .padding(.top, 8)
     }
 
     private var statsRow: some View {
