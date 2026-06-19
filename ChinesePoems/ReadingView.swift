@@ -200,6 +200,12 @@ struct ChineseTextColumn: View {
         let entry = showPinyin ? pinyinDictionary[charStr] : nil
 
         HStack(spacing: gutterSpacing) {
+            // Mirror the pinyin gutter on the left so the character slot stays
+            // centered on screen whether or not pinyin is showing.
+            if showPinyin {
+                Color.clear.frame(width: pinyinGutter, height: 1)
+            }
+
             // Character — fixed centered slot keeps the vertical line dead straight.
             Text(charStr)
                 .font(Theme.serif(30, .medium))
