@@ -182,22 +182,29 @@ struct ChineseTextColumn: View {
     private let pinyinGutter: CGFloat = 88
     private let gutterSpacing: CGFloat = 12
 
+    // Tap opens the lookup popover anchored to this row; tracked by index so
+    // repeated characters (e.g. two 不) don't all open at once.
+    @State private var selectedIndex: Int?
+    // Bumped on every long-press save to fire a light haptic.
+    @State private var saveHaptic = 0
+
     var body: some View {
         VStack(spacing: 16) {
-            ForEach(Array(text.enumerated()), id: \.offset) { _, char in
-                row(for: char)
+            ForEach(Array(text.enumerated()), id: \.offset) { index, char in
+                row(for: char, at: index)
             }
         }
         .frame(maxWidth: .infinity)
         .padding(.horizontal)
+        .sensoryFeedback(.impact(weight: .light), trigger: saveHaptic)
     }
 
     @ViewBuilder
-    private func row(for char: Character) -> some View {
+    private func row(for char: Character, at index: Int) -> some View {
         let charStr = String(char)
         let isHanzi = char.isLetter && !char.isWhitespace
         let saved = store.isSaved(charStr)
-        let entry = showPinyin ? pinyinDictionary[charStr] : nil
+        let entry = pinyinDictionary[charStr]
 
         HStack(spacing: gutterSpacing) {
             // Mirror the pinyin gutter on the left so the character slot stays
@@ -224,7 +231,73 @@ struct ChineseTextColumn: View {
         // character axis stays in the same place for every row.
         .frame(maxWidth: .infinity)
         .contentShape(Rectangle())
-        .onTapGesture { if isHanzi { store.toggleSaved(charStr) } }
+        // Tap → look up (pinyin + definition + save). Long-press → quick-save.
+        .onTapGesture { if isHanzi { selectedIndex = index } }
+        .onLongPressGesture(minimumDuration: 0.4) {
+            if isHanzi {
+                store.toggleSaved(charStr)
+                saveHaptic += 1
+            }
+        }
+        .popover(isPresented: Binding(
+            get: { selectedIndex == index },
+            set: { if !$0 { selectedIndex = nil } }
+        )) {
+            CharacterPopover(charStr: charStr, entry: entry, store: store)
+                .presentationCompactAdaptation(.popover)
+        }
+    }
+}
+
+// MARK: - Character lookup popover (tap a character)
+
+private struct CharacterPopover: View {
+    let charStr: String
+    let entry: DictionaryEntry?
+    @ObservedObject var store: ProgressStore
+
+    var body: some View {
+        let saved = store.isSaved(charStr)
+        VStack(alignment: .leading, spacing: 12) {
+            HStack(alignment: .firstTextBaseline, spacing: 12) {
+                Text(charStr)
+                    .font(Theme.serif(40, .medium))
+                    .foregroundColor(saved ? Theme.cinnabar : Theme.ink)
+                if let entry, !entry.pinyin_tone_lines.isEmpty {
+                    Text(entry.pinyin_tone_lines)
+                        .font(Theme.label(18))
+                        .foregroundColor(Theme.inkFaded)
+                }
+            }
+
+            if let entry, !entry.definition.isEmpty {
+                Text(entry.definition)
+                    .font(Theme.serif(15))
+                    .foregroundColor(Theme.ink)
+                    .fixedSize(horizontal: false, vertical: true)
+            } else {
+                Text("No dictionary entry · 暫無釋義")
+                    .font(Theme.serif(14))
+                    .foregroundColor(Theme.inkWhisper)
+            }
+
+            Rectangle().fill(Theme.hairline).frame(height: 0.5)
+
+            Button {
+                store.toggleSaved(charStr)
+            } label: {
+                HStack(spacing: 8) {
+                    Image(systemName: saved ? "heart.fill" : "heart")
+                    Text(saved ? "已存 · Saved" : "存 · Save character")
+                        .font(Theme.serif(15, .medium))
+                }
+                .foregroundColor(saved ? Theme.cinnabar : Theme.ink)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            }
+        }
+        .padding(18)
+        .frame(width: 248)
+        .presentationBackground(Theme.paperRaised)
     }
 }
 
